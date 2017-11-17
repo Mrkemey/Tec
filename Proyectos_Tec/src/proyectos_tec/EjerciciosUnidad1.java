@@ -186,6 +186,26 @@ public class EjerciciosUnidad1{
       
       }
    }
+   
+   
+   
+   
+   
+   
+   public static boolean primos(int n){
+      int d=0;
+      for(int i=1;i<=n;i++){
+         if(n%i==0){         
+            d++;         
+         }
+      }
+      if(d==2){     
+         return true;    
+      }
+      else{     
+         return false;     
+      }
+    }
 //-----------------------------------------------------------------------
 //   
    
