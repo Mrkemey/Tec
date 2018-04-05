@@ -19,7 +19,7 @@ public class Array2DEntero {
         for (int i = 0; i < r; i++) {
             for (int j = 0; j < c; j++) {
                 //M[i][j]=Float.parseFloat(showInputDialog("M["+i+"]["+j+"]"));
-                llenarSim();
+                random();
             }
         }
     }
@@ -118,10 +118,58 @@ public class Array2DEntero {
         }
         return s;
     }
+    public void ordenar(){
+        int tam=r*c,a=0;
+        String cad="";
+        int A[]=new int[tam];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                A[a++]=M[i][j];
+            }
+        }
+        for (int i = 1; i < tam; i++) {
+            for (int j = 0; j < tam-i; j++) {
+                if (A[j]>A[j+1]) {
+                    int t=A[j];
+                    A[j]=A[j+1];
+                    A[j+1]=t;
+                }                
+            }            
+        }
+        a=0;
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                M[i][j]=A[a++];
+                cad=cad+M[i][j];
+            }
+            cad=cad+"\n";
+        }
+        showMessageDialog(null, cad);
+    }
+    public void primos(){
+        int tam=r*c,a=0;
+        String cad="";
+        int A[]=new int[tam];
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (EjerciciosUnidad1.primos(M[i][j])==true) {
+                    A[a++]=M[i][j];      
+                }else{
+                    tam--;
+                }  
+            }
+        }
+        for (int i = 0; i < tam; i++) {
+            cad =cad+ A[i];
+            
+        }
+        showMessageDialog(null, cad);
+    }
     
     public static void main(String[] args) {
         Array2DEntero a=new Array2DEntero();
         a.leer(); a.mostrar();
+        a.ordenar();a.primos();
     }
 }
 

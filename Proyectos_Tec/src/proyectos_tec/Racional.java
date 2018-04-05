@@ -12,6 +12,7 @@ import static proyectos_tec.EjerciciosU3.*;
  */
 public class Racional {
     private int n,d;
+    @Override
     public String toString(){
         return n+"/"+d;
     }
