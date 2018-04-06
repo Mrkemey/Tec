@@ -1,6 +1,8 @@
 package BoletosDeAvion;
 
 
+
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -108,7 +110,7 @@ public class Ventana extends javax.swing.JFrame {
             }
             else
             {
-                showMessageDialog(this, "Selecciona una opción de TIPO DE VUELO, por favor");
+                showMessageDialog(this, "Selecciona una opción de TIPO DE VUELO, por favor ");
                 band=true;
             }
         }
