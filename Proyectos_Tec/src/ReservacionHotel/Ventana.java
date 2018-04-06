@@ -265,6 +265,7 @@ public class Ventana extends javax.swing.JFrame {
             txtNH.setText("");
             jDateEntrada.setDate(null);//Valores null
             jDateSalida.setDate(null);
+            fe=null;fa=null;
             cmbTipo.setSelectedIndex(0); 
             txtNH.requestFocus();
         }
