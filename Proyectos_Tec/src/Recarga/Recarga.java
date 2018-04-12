@@ -113,7 +113,7 @@ public class Recarga extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     public void valNumCel(String n)throws TelExcepcion{
         if (n.length()!=10) {
-            throw new TelExcepcion("Numero de 10 Dig");
+            throw new TelExcepcion("Numero de 10 Dig:");
             
         } else {
             for (int i = 0; i < n.length(); i++) {
