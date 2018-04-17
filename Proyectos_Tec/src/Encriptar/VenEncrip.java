@@ -30,7 +30,7 @@ public class VenEncrip extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtEnc = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGen = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtMSG = new javax.swing.JTextArea();
         lblCar = new javax.swing.JLabel();
@@ -44,7 +44,12 @@ public class VenEncrip extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         jLabel1.setText("Mensaje");
 
-        jButton1.setText("jButton1");
+        btnGen.setText("Generar");
+        btnGen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenActionPerformed(evt);
+            }
+        });
 
         txtMSG.setColumns(20);
         txtMSG.setRows(5);
@@ -64,7 +69,7 @@ public class VenEncrip extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jButton1)
+                .addComponent(btnGen)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 25, 25))
@@ -93,7 +98,7 @@ public class VenEncrip extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(btnGen))
                 .addGap(64, 64, 64))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -107,7 +112,7 @@ public class VenEncrip extends javax.swing.JFrame {
     
     private void analizaMsg(String text)throws EncriException{
         String ab="qwertyuiopasdfghjklñzxcvbnm ";
-        if (text.length()>20) {
+        if (text.length()>60) {
             throw new EncriException("Max 20 Caracteres");
         }
         for (int i = 0; i < text.length(); i++) {
@@ -118,10 +123,29 @@ public class VenEncrip extends javax.swing.JFrame {
             
         }
     }
-    
+    public void encripMsg(String msg)throws EncriException{
+        String cad="";
+        for (int i = 0; i < msg.length(); i++) {
+            int temp=msg.codePointAt(i);
+            if (temp>=97&&temp<122||temp>=65&&temp<90) {
+                cad=cad+(char)(temp+1);
+            }else{
+                if (temp==122) {
+                    cad=cad+(char)(97);
+                }else{
+                    if (temp==90) {
+                       cad=cad+(char)(65); 
+                    } else {                    
+                    cad=cad+(char)(temp);
+                    }
+                }
+            }
+            txtEnc.setText(cad);
+        }
+    }
     private void txtMSGKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMSGKeyReleased
         lblCar.setText(txtMSG.getText().length()+" Caracteres");
-        analizaMsg(txtMSG.getText());
+        analizaMsg(txtMSG.getText());        
     }//GEN-LAST:event_txtMSGKeyReleased
 
     private void txtMSGKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMSGKeyPressed
@@ -129,6 +153,11 @@ public class VenEncrip extends javax.swing.JFrame {
         lblCar.setText(txtMSG.getText().length()+" Caracteres");
         analizaMsg(txtMSG.getText());
     }//GEN-LAST:event_txtMSGKeyPressed
+
+    private void btnGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenActionPerformed
+        // TODO add your handling code here:
+        encripMsg(txtMSG.getText());
+    }//GEN-LAST:event_btnGenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,7 +195,7 @@ public class VenEncrip extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnGen;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
