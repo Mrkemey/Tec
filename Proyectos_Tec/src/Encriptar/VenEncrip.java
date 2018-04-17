@@ -118,7 +118,7 @@ public class VenEncrip extends javax.swing.JFrame {
         for (int i = 0; i < text.length(); i++) {
             if (!ab.contains(text.substring(i,i+1).toLowerCase())) {
                 txtMSG.setText(text.substring(0, text.length()-1));
-                throw new EncriException("Solo letras");
+                throw new EncriException("Solo letras ");
             }
             
         }
