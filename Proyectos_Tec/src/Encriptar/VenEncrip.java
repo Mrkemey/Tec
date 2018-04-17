@@ -112,7 +112,7 @@ public class VenEncrip extends javax.swing.JFrame {
     
     private void analizaMsg(String text)throws EncriException{
         String ab="qwertyuiopasdfghjklñzxcvbnm ";
-        if (text.length()>60) {
+        if (text.length()>20) {
             throw new EncriException("Max 20 Caracteres");
         }
         for (int i = 0; i < text.length(); i++) {
