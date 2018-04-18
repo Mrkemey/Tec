@@ -210,8 +210,8 @@ public class VentCurp extends javax.swing.JFrame {
     }
     public String cambCad(String cad){
         String pa[]={"PENE","PUTO","PUTA","LOCO","CACA"};
-        for (int i = 0; i < pa.length; i++) {
-            if(cad.equals(pa[i])){
+        for (String ver : pa) {
+            if (cad.equals(ver)) {
                 cad=cad.substring(0, 1)+"X"+cad.substring(2, 4);
             }   
         }
@@ -227,7 +227,12 @@ public class VentCurp extends javax.swing.JFrame {
         return pl;
     }
     public String valFecha()throws CurpException{        
-        if(dateNac!=null){
+        if(dateNac==null){
+            showMessageDialog(this,"FECHA DE NACIMIENTO");
+            dateNac.requestFocus();
+            throw new CurpException("Selecciona Fecha de Nacimiento");
+        }
+        else{
             dia=Integer.toString(dateNac.getCalendar().get(Calendar.DAY_OF_MONTH));
             int com=Integer.parseInt(dia);
             if(com>=1&&com<=9){
@@ -241,11 +246,6 @@ public class VentCurp extends javax.swing.JFrame {
             año=Integer.toString(dateNac.getCalendar().get(Calendar.YEAR));
             año=año.substring(2,4);
             return fecha=año+mes+dia;
-        }
-        else{
-            showMessageDialog(this,"FECHA DE NACIMIENTO");
-            dateNac.requestFocus();
-            throw new CurpException("Selecciona Fecha de Nacimiento");
         }       
     }
     public String getEdo()throws CurpException{
