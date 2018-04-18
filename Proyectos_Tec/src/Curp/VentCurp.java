@@ -5,7 +5,10 @@
  */
 package Curp;
 
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -39,7 +42,7 @@ public class VentCurp extends javax.swing.JFrame {
         txtNom = new javax.swing.JTextField();
         dateNac = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        cboxFech = new javax.swing.JComboBox<>();
+        cboxEnti = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         txtCurp = new javax.swing.JTextField();
         btnGen = new javax.swing.JButton();
@@ -64,9 +67,11 @@ public class VentCurp extends javax.swing.JFrame {
 
         jLabel6.setText("Sexo");
 
-        cboxFech.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Estado", "Nayarit", "Jalisco", "Mexico", "Michoacan" }));
+        cboxEnti.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Estado", "Nayarit", "Jalisco", "Mexico", "Michoacan" }));
 
         jLabel7.setText("Curp");
+
+        txtCurp.setEditable(false);
 
         btnGen.setText("Generar");
         btnGen.setPreferredSize(new java.awt.Dimension(80, 32));
@@ -98,7 +103,7 @@ public class VentCurp extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -106,28 +111,31 @@ public class VentCurp extends javax.swing.JFrame {
                             .addComponent(btnGen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSal, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addGap(32, 32, 32)
+                            .addComponent(rbtnHom)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(rbtnMuj))
                         .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel7))
-                            .addGap(26, 26, 26)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateNac, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cboxFech, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(txtCurp)
-                                    .addComponent(txtMat)
-                                    .addComponent(txtNom)
-                                    .addComponent(txtPat))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(rbtnHom)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(rbtnMuj))))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(cboxEnti, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel7))
+                                    .addGap(26, 26, 26)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(dateNac, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                        .addComponent(txtCurp)
+                                        .addComponent(txtMat)
+                                        .addComponent(txtNom)
+                                        .addComponent(txtPat))))
+                            .addGap(3, 3, 3))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,16 +156,16 @@ public class VentCurp extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dateNac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cboxFech, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(rbtnHom)
                     .addComponent(rbtnMuj))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(cboxEnti, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtCurp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -175,32 +183,31 @@ public class VentCurp extends javax.swing.JFrame {
         cad=cad.toUpperCase();
         String pl="",voc="AEIOU";
         if (cad.equals("")){
-            throw new CurpException("Cadena Vacia");   
+            throw new CurpException("Llene los datos");   
         }
         pl=cad.substring(0,1);
         for (int i = 1; i < cad.length(); i++) {
-            if (voc.indexOf(cad.substring(i,i+1))!=1) {
+            if (voc.contains(cad.substring(i,i+1))) {
                 pl=pl+cad.substring(i, i+1);
                 break;
             }            
         }
         return pl;
     }
-    public String getpC(String cad)throws CurpException{
+    public String getsL(String cad)throws CurpException{
         cad=cad.toUpperCase();
         String pl="",voc="AEIOU";
         if (cad.equals("")){
-            throw new CurpException("Cadena Vacia");   
+            throw new CurpException("Llene los datos");   
         }
-        for (int i = 2; i < cad.length(); i++) {
-            if (voc.indexOf(cad.substring(i,i+1))==1) {
+        for (int i = 1; i < cad.length(); i++) {
+            if (!voc.contains(cad.substring(i,i+1))) {
                 pl=pl+cad.substring(i, i+1);
                 break;
             }            
         }
         return pl;
     }
-
     public String cambCad(String cad){
         String pa[]={"PENE","PUTO","PUTA","LOCO","CACA"};
         for (int i = 0; i < pa.length; i++) {
@@ -214,25 +221,95 @@ public class VentCurp extends javax.swing.JFrame {
         cad=cad.toUpperCase();
         String pl="";
         if (cad.equals("")){
-            throw new CurpException("Cadena Vacia");   
+            throw new CurpException("Llene los datos");   
         }
         pl=cad.substring(0,1);
         return pl;
     }
-    private void rbtnHomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnHomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnHomActionPerformed
-
-    private void btnGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenActionPerformed
-        String Curp=" ";
+    public String valFecha()throws CurpException{        
+        if(dateNac!=null){
+            dia=Integer.toString(dateNac.getCalendar().get(Calendar.DAY_OF_MONTH));
+            int com=Integer.parseInt(dia);
+            if(com>=1&&com<=9){
+                dia="0"+dia;
+            }
+            mes=Integer.toString(dateNac.getCalendar().get(Calendar.MONTH)+1);
+            int com2=Integer.parseInt(mes);
+            if(com2>=1&&com2<=9){
+                mes="0"+mes;
+            }
+            año=Integer.toString(dateNac.getCalendar().get(Calendar.YEAR));
+            año=año.substring(2,4);
+            return fecha=año+mes+dia;
+        }
+        else{
+            showMessageDialog(this,"FECHA DE NACIMIENTO");
+            dateNac.requestFocus();
+            throw new CurpException("Selecciona Fecha de Nacimiento");
+        }       
+    }
+    public String getEdo()throws CurpException{
+        String A;
+        if(cboxEnti.getSelectedIndex()!=0){
+            if (cboxEnti.getSelectedIndex()==1) {
+                A="NT";
+            } else {
+                if (cboxEnti.getSelectedIndex()==2) {
+                    A="JL";
+                } else {
+                    if (cboxEnti.getSelectedIndex()==3) {
+                        A="MX";
+                    } else {
+                        A="MC";
+                    }
+                }
+            }
+            return A;
+        }
+        else{
+            throw new CurpException("Selecciona Estado");
+        }
+    }
+    public String sexo()throws CurpException{
+        if (rbtnHom.isSelected()) {
+            return "H";
+        } else {
+            if (rbtnMuj.isSelected()) {
+                return "M";
+            } else {
+                throw new CurpException("Selecciona Sexo");
+            }
+        }    
+    }
+    private String genCurp()throws CurpException{
+        String Curp;
         try {
             Curp=getpLpV(txtPat.getText());
             Curp=Curp+getpL(txtMat.getText())+getpL(txtNom.getText());
             Curp=cambCad(Curp);
+            Curp=Curp+valFecha();        
+            Curp=Curp+sexo();
+            Curp=Curp+getEdo();
+            Curp=Curp+getsL(txtPat.getText())+getsL(txtMat.getText())+getsL(txtNom.getText());
+            Curp=Curp+"00";
+            if (Curp.length()==18) {
+              return Curp;  
+            }            
         } catch (CurpException e) {
             JOptionPane.showMessageDialog(this,e.getMessage());
         }
-        txtCurp.setText(Curp);
+        return "";       
+    }
+    private void rbtnHomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnHomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnHomActionPerformed
+    private void btnGenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenActionPerformed
+        try {
+            txtCurp.setText(genCurp());
+            
+        } catch (CurpException e) {
+            JOptionPane.showMessageDialog(this,e.getMessage());
+        }
     }//GEN-LAST:event_btnGenActionPerformed
 
     /**
@@ -269,12 +346,13 @@ public class VentCurp extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    public String dia="", mes="", año="", fecha="", s="";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGen;
     private javax.swing.JButton btnSal;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JComboBox<String> cboxFech;
+    private javax.swing.JComboBox<String> cboxEnti;
     private com.toedter.calendar.JDateChooser dateNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
