@@ -147,31 +147,16 @@ public class Ventana extends javax.swing.JFrame {
     private void cmbArtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbArtActionPerformed
         // TODO add your handling code here:
         if (cmbArt.getSelectedIndex()==1) {
-            cmbCan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CancionA1 1", "CancionA1 2", "CancionA1 3", "CancionA1 4" }));
-            for (int i = 0; i < 4; i++) {
-                Precio[1][i]=(int)(Math.random()*10);
-                
-            }
+            cmbCan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CancionA1 1", "CancionA1 2", "CancionA1 3", "CancionA1 4" }));            
         }else{
             if (cmbArt.getSelectedIndex()==2) {
-                cmbCan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CancionA2 1", "CancionA2 2", "CancionA2 3", "CancionA2 4" }));
-                for (int i = 0; i < 4; i++) {
-                Precio[2][i]=(int)(Math.random()*10);
-                
-                }
+                cmbCan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CancionA2 1", "CancionA2 2", "CancionA2 3", "CancionA2 4" }));               
             } else {
                 if (cmbArt.getSelectedIndex()==3) {
                 cmbCan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CancionA2 1", "CancionA2 2", "CancionA2 3", "CancionA2 4" }));
-                for (int i = 0; i < 4; i++) {
-                    Precio[3][i]=(int)(Math.random()*10);
-                }
                 }else{
                     if (cmbArt.getSelectedIndex()==4) {
                         cmbCan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CancionA2 1", "CancionA2 2", "CancionA2 3", "CancionA2 4" }));
-                        for (int i = 0; i < 4; i++) {
-                            Precio[4][i]=(int)(Math.random()*10);
-                
-                        }
                     }
                 }
             }
@@ -182,13 +167,20 @@ public class Ventana extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+    private int precio(int x, int y){
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+               Precio[i][j]=(int)(Math.random()*100); 
+            }
+        }
+        return Precio[x][y];
+    }
     private void btnComActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComActionPerformed
             Object O[]=new Object[3];
             int cant=Precio[cmbArt.getSelectedIndex()][cmbCan.getSelectedIndex()];
             O[0]=(String)cmbCan.getSelectedItem()+"";
             O[1]=(String)cmbArt.getSelectedItem()+"";
-            O[2]=(Object)cant;
+            O[2]=cant;
             modelo.addRow(O);
 
             cmbArt.setSelectedIndex(0);
@@ -232,7 +224,7 @@ public class Ventana extends javax.swing.JFrame {
     }
     private DefaultTableModel modelo;
     private int total=0;
-    public int Precio[][]=new int[4][4];
+    public int Precio[][]=new int[5][5];
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

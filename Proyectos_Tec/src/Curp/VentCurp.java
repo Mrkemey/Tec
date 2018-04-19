@@ -228,8 +228,6 @@ public class VentCurp extends javax.swing.JFrame {
     }
     public String valFecha()throws CurpException{        
         if(dateNac==null){
-            showMessageDialog(this,"FECHA DE NACIMIENTO");
-            dateNac.requestFocus();
             throw new CurpException("Selecciona Fecha de Nacimiento");
         }
         else{
