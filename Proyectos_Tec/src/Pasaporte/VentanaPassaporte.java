@@ -24,6 +24,7 @@ public class VentanaPassaporte extends javax.swing.JFrame {
         initComponents();
         txtNP.setEnabled(false);
         jLabel9.setVisible(false);
+        rbtnPri.setSelected(true);
     }
 
     /**
@@ -245,6 +246,34 @@ public class VentanaPassaporte extends javax.swing.JFrame {
         }     
     }
     private final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    /*
+        Formato de Email
+    
+
+        Comienzo del patrón
+        ^
+
+        Caracteres por los que puede comenzar la dirección del correo electrónico
+        [_A-Za-z0-9-\\+]+
+
+        Caracteres opcionales.
+        (\\.[_A-Za-z0-9-]+)*
+
+        La dirección de correo debe contener el símbolo @
+        @
+
+        El nombre del dominio del correo debe comenzar por estos caracteres
+        [A-Za-z0-9-]+
+
+        El primer dominio de nivel superior o TLD debe de comenzar por punto seguido por los caracteres resaltados
+        (\\.[A-Za-z0-9]+)*
+
+        El primer nivel TLD puede ir seguido opcionalmente por un segundo nivel TLD que debe ser de tener 2 o más caracteres
+        (\\.[A-Za-z]{2,})$;
+
+
+    
+    */
     public boolean validateEmail(String email) {
  
         // Compiles the given regular expression into a pattern.
@@ -252,7 +281,7 @@ public class VentanaPassaporte extends javax.swing.JFrame {
  
         // Match the given input against this pattern
         Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return matcher.matches();//retorna si se cumple el Pattern(patron)
  
     }
     public void validEnti()throws CitaException{
@@ -315,7 +344,7 @@ public class VentanaPassaporte extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbTipoActionPerformed
 
     private void btnSalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalActionPerformed
-        System.exit(WIDTH);
+        System.exit(0);
     }//GEN-LAST:event_btnSalActionPerformed
 
     private void cmbTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbTipoItemStateChanged
@@ -337,7 +366,8 @@ public class VentanaPassaporte extends javax.swing.JFrame {
             validtxtField(txtNombre.getText());
             validtxtField(txtApe.getText());
             validtxtField(txtNombre.getText());
-            validE_mail(validateEmail(txtEma.getText()));
+            validE_mail(validateEmail(txtEma.getText()));//Lo que hace el "validE_mail" pide un booleano si cae en falso
+            //manda una excepcion de lo contrario la deja pasar; "validateEmail" recibe un string y retorna un boleano
         }
         catch (CitaException e){
             showMessageDialog(rootPane,e.getMessage());
