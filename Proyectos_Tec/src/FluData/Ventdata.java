@@ -7,6 +7,7 @@ package FluData;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,8 @@ public class Ventdata extends javax.swing.JFrame {
         mnuSa = new javax.swing.JMenuItem();
         mnuEx = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        flucatOpen = new javax.swing.JMenuItem();
+        flucatSave = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,7 +85,24 @@ public class Ventdata extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("FluCat");
+
+        flucatOpen.setText("Open");
+        flucatOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flucatOpenActionPerformed(evt);
+            }
+        });
+        jMenu2.add(flucatOpen);
+
+        flucatSave.setText("Save");
+        flucatSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                flucatSaveActionPerformed(evt);
+            }
+        });
+        jMenu2.add(flucatSave);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -150,6 +170,38 @@ public class Ventdata extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuSaActionPerformed
 
+    private void flucatSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flucatSaveActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            java.io.FileWriter fs=new java.io.FileWriter("Archivo");           
+            fs.write(txtArea.getText());
+            fs.flush();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage());
+        } catch (IOException ex) {
+            Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_flucatSaveActionPerformed
+
+    private void flucatOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flucatOpenActionPerformed
+        // TODO add your handling code here:
+        try {
+            FileReader fl=new FileReader("Archivo.txt");
+            int c;String cad="";
+            while ((c=fl.read())!=-1) {
+               
+                cad=cad+(char)c;
+            }
+            txtArea.setText(cad);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_flucatOpenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -186,6 +238,8 @@ public class Ventdata extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem flucatOpen;
+    private javax.swing.JMenuItem flucatSave;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
