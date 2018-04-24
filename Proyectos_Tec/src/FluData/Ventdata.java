@@ -5,13 +5,17 @@
  */
 package FluData;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -130,10 +134,17 @@ public class Ventdata extends javax.swing.JFrame {
     private void mnuOpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpActionPerformed
         // TODO add your handling code here:
         try {
-            FileInputStream fl=new FileInputStream("Archivo.txt");
-            int c;String cad="";
-            while ((c=fl.read())!=-1) {
-               
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & GIF Images", "jpg", "gif");//A ESTO NO LE MUEVAS ESTUPIDA!
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(this);//para guardar
+            if(returnVal == JFileChooser.APPROVE_OPTION){
+               System.out.println("You chose to open this file: " + chooser.getSelectedFile().getName());
+            } 
+            java.io.FileInputStream fl=new java.io.FileInputStream("ARCHI.TXT");
+            int c;
+            String cad="";
+            while((c=fl.read())!=-1){
                 cad=cad+(char)c;
             }
             txtArea.setText(cad);
@@ -158,10 +169,17 @@ public class Ventdata extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            java.io.FileOutputStream fs=new java.io.FileOutputStream("Archivo.txt");
-            byte b[]=txtArea.getText().getBytes();
-            fs.write(b);
-            fs.flush();
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ARCHIVOS DE TEXTO", "txt", "bat");//A ESTO NO LE MUEVAS ESTUPIDA!
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showSaveDialog(this);//para guardar
+            if(returnVal == 0){
+               String archivo=chooser.getSelectedFile().getPath()+chooser.getSelectedFile();//que se haga un filtro dependiendo de la extencion, dude
+               java.io.FileOutputStream fs=new java.io.FileOutputStream(archivo,true);
+               byte b[]=txtArea.getText().getBytes();
+               fs.write(b);
+               fs.flush();
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -174,9 +192,16 @@ public class Ventdata extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // TODO add your handling code here:
-            java.io.FileWriter fs=new java.io.FileWriter("Archivo");           
-            fs.write(txtArea.getText());
-            fs.flush();
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ARCHIVOS DE TEXTO", "TXT", "BAT");//A ESTO NO LE MUEVAS ESTUPIDA!
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showSaveDialog(this);//para guardar
+            if(returnVal == 0){
+               File archivo=chooser.getSelectedFile();
+               java.io.FileWriter fw= new java.io.FileWriter(archivo);
+               fw.write(txtArea.getText());
+               fw.flush();
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(rootPane, ex.getMessage());
@@ -188,13 +213,21 @@ public class Ventdata extends javax.swing.JFrame {
     private void flucatOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_flucatOpenActionPerformed
         // TODO add your handling code here:
         try {
-            FileReader fl=new FileReader("Archivo.txt");
-            int c;String cad="";
-            while ((c=fl.read())!=-1) {
-               
-                cad=cad+(char)c;
+            
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("ARCHIVOS DE TEXTO", "TXT", "BAT");//A ESTO NO LE MUEVAS ESTUPIDA!
+            chooser.setFileFilter(filter);
+            int returnVal = chooser.showOpenDialog(this);//para guardar
+            if(returnVal == 0){
+               File archivo=chooser.getSelectedFile();               
+               String cadena,cad="";
+               FileReader f = new FileReader(archivo);
+               BufferedReader b = new BufferedReader(f);
+               while((cadena = b.readLine())!=null) {
+                    cad=cad+cadena;
+               }
+               txtArea.setText(cad);
             }
-            txtArea.setText(cad);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Ventdata.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
