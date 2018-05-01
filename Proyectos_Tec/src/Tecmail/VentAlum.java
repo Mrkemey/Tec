@@ -19,21 +19,15 @@ import javax.swing.table.DefaultTableModel;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author SG-A1
- */
 public class VentAlum extends javax.swing.JFrame {
 
     /**
-     * Creates new form Registrar
+     * Creates new form VentAlum
      */
     public VentAlum() {
         initComponents();
-        modelo=(DefaultTableModel) tblAlumno.getModel();
-        
+        modelo=(DefaultTableModel) tblAlumno.getModel();       
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -281,60 +275,76 @@ public class VentAlum extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void limpiarCampos(){
-        txtNc.setText(""); txtNombres.setText("");
-        txtAP.setText(""); txtAM.setText("");
+    
+    private void clearField() {
+        txtNc.setText("");
+        txtNombres.setText("");
+        txtAP.setText("");
+        txtAM.setText("");
         txtEmail.setText("");
     }
-    private void cambiarCampos(){
-       if(txtNc.isEditable())txtNc.setEditable(false); else txtNc.setEditable(true);
-       if(txtNombres.isEditable())txtNombres.setEditable(false); else txtNombres.setEditable(true);
-       if(txtAP.isEditable())txtAP.setEditable(false); else txtAP.setEditable(true);
-       if(txtAM.isEditable())txtAM.setEditable(false); else txtAM.setEditable(true);
+
+    private void cField() {
+        if (txtNc.isEditable()) {
+            txtNc.setEditable(false);
+        } else {
+            txtNc.setEditable(true);
+        }
+        if (txtNombres.isEditable()) {
+            txtNombres.setEditable(false);
+        } else {
+            txtNombres.setEditable(true);
+        }
+        if (txtAP.isEditable()) {
+            txtAP.setEditable(false);
+        } else {
+            txtAP.setEditable(true);
+        }
+        if (txtAM.isEditable()) {
+            txtAM.setEditable(false);
+        } else {
+            txtAM.setEditable(true);
+        }
     }
-    private void cambiaBotones(){
-        if(btnNuevo.isEnabled())btnNuevo.setEnabled(false);else btnNuevo.setEnabled(true);
-        if(btnGuardar.isEnabled())btnGuardar.setEnabled(false);else btnGuardar.setEnabled(true);
-        if(btnCancelar.isEnabled())btnCancelar.setEnabled(false);else btnCancelar.setEnabled(true);
-        if(btnBuscar.isEnabled())btnBuscar.setEnabled(false);else btnBuscar.setEnabled(true);
-        
+
+    private void cButton() {
+        if (btnNuevo.isEnabled()) {
+            btnNuevo.setEnabled(false);
+        } else {
+            btnNuevo.setEnabled(true);
+        }
+        if (btnGuardar.isEnabled()) {
+            btnGuardar.setEnabled(false);
+        } else {
+            btnGuardar.setEnabled(true);
+        }
+        if (btnCancelar.isEnabled()) {
+            btnCancelar.setEnabled(false);
+        } else {
+            btnCancelar.setEnabled(true);
+        }
+        if (btnBuscar.isEnabled()) {
+            btnBuscar.setEnabled(false);
+        } else {
+            btnBuscar.setEnabled(true);
+        }
+
     }
-    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombresActionPerformed
-    void llenarCampos(Alumno a){
-        this.txtNc.setText(a.getNc());
-        this.txtNombres.setText(a.getNombres());
-        this.txtAP.setText(a.getApaterno());
-        this.txtAM.setText(a.getAmaterno());
-        this.txtEmail.setText(a.getEmail());
-    }
-    
-    public void espaciosBlanco()
-    {
-        if(txtNc.getText().equals(""))
-        {
+
+    public void esBla() {
+        if (txtNc.getText().equals("")) {
             txtNc.requestFocus();
             throw new E_mailExecption("Espacio en blanco");
-        }
-        else
-        {
-            if(txtNombres.getText().equals(""))
-            {
+        } else {
+            if (txtNombres.getText().equals("")) {
                 txtNombres.requestFocus();
                 throw new E_mailExecption("Espacio en blanco");
-            }
-            else
-            {
-                if(txtAP.getText().equals(""))
-                {
+            } else {
+                if (txtAP.getText().equals("")) {
                     txtAP.requestFocus();
                     throw new E_mailExecption("Espacio en blanco");
-                }
-                else
-                {
-                    if(txtAM.getText().equals(""))
-                    {
+                } else {
+                    if (txtAM.getText().equals("")) {
                         txtAM.requestFocus();
                         throw new E_mailExecption("Espacio en blanco");
                     }
@@ -342,31 +352,29 @@ public class VentAlum extends javax.swing.JFrame {
             }
         }
     }
-    public boolean eBl()
-    {
-        if(txtNc.getText().equals(""))
-        {
+
+    private void llenarCampos(Alumno a) {
+        this.txtNc.setText(a.getNc());
+        this.txtNombres.setText(a.getNombres());
+        this.txtAP.setText(a.getApaterno());
+        this.txtAM.setText(a.getAmaterno());
+        this.txtEmail.setText(a.getEmail());
+    }
+
+    public boolean espBla_boolean() {
+        if (txtNc.getText().equals("")) {
             txtNc.requestFocus();
             throw new E_mailExecption("Espacio en blanco");
-        }
-        else
-        {
-            if(txtNombres.getText().equals(""))
-            {
+        } else {
+            if (txtNombres.getText().equals("")) {
                 txtNombres.requestFocus();
                 throw new E_mailExecption("Espacio en blanco");
-            }
-            else
-            {
-                if(txtAP.getText().equals(""))
-                {
+            } else {
+                if (txtAP.getText().equals("")) {
                     txtAP.requestFocus();
                     throw new E_mailExecption("Espacio en blanco");
-                }
-                else
-                {
-                    if(txtAM.getText().equals(""))
-                    {
+                } else {
+                    if (txtAM.getText().equals("")) {
                         txtAM.requestFocus();
                         throw new E_mailExecption("Espacio en blanco");
                     }
@@ -375,134 +383,154 @@ public class VentAlum extends javax.swing.JFrame {
         }
         return true;
     }
-    
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        if (!btnConf.isEnabled()) {
-            limpiarCampos();       
-            cambiarCampos();          
-            cambiaBotones();       
-            txtNc.requestFocus();
-        }       
-    }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try
-        {
-            espaciosBlanco();
-        }
-        catch(E_mailExecption e)
-        {
-            showMessageDialog(rootPane,e.getMessage());
-            return;
-        }        
-        Alumno a = new Alumno(txtNc.getText(),txtNombres.getText(),txtAP.getText(),txtAM.getText());
-        a.guardar();
-        limpiarCampos();
-        cambiaBotones();
-        cambiarCampos();
-        txtNc.requestFocus();
-         
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String nc = showInputDialog(this,"Número de control a buscar");
-        Alumno a = new Alumno();
-        a.buscar(nc);
-        llenarCampos(a);
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void txtNcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcKeyTyped
-       char c=evt.getKeyChar();
-        if(((c<'0')||(c>'9'))&&(c!='\b'))
-        {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNcKeyTyped
-
-    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
-        char validar=evt.getKeyChar();
-        if(Character.isDigit(validar))
-        {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNombresKeyTyped
-
-    private void txtAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAPKeyTyped
-        char validar=evt.getKeyChar();
-        if(Character.isDigit(validar))
-        {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtAPKeyTyped
-
-    private void txtAMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMKeyTyped
-        char validar=evt.getKeyChar();
-        if(Character.isDigit(validar))
-        {
-            getToolkit().beep();
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtAMKeyTyped
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
-        tblReload();
-    }//GEN-LAST:event_btnTodosActionPerformed
-    private void tblReload(){
+    private void tblReload() {
         FileInputStream fb;
         modelo.setRowCount(0);
-            if (btnConf.isEnabled()!=true) {
-                btnMod.setEnabled(true);
-            }else{
-                reloadbot();
-            }
+        if (btnConf.isEnabled() != true) {
+            btnMod.setEnabled(true);
+        } else {
+            cBtn_tbl();
+        }
         tblAlumno.setEnabled(true);
         try {
             fb = new FileInputStream(Alumno.File);
             java.io.DataInputStream fdr = new java.io.DataInputStream(fb);
-            Object O[]=new Object[5];
-            while(fdr!=null)
-            {
-                O[0]=fdr.readUTF();
-                O[1]=fdr.readUTF();
-                O[2]=fdr.readUTF();
-                O[3]=fdr.readUTF();
-                O[4]=fdr.readUTF();
-                modelo.addRow(O);                
+            Object O[] = new Object[5];
+            while (true) {
+                O[0] = fdr.readUTF();
+                O[1] = fdr.readUTF();
+                O[2] = fdr.readUTF();
+                O[3] = fdr.readUTF();
+                O[4] = fdr.readUTF();
+                modelo.addRow(O);
             }
-                      
-        } 
-        catch(EOFException ex)
-        {
+
+        } // <editor-fold defaultstate="collapsed" desc="Catches">
+        catch (EOFException ex) {
             //editar, eliminar.
-        }
-        catch (FileNotFoundException ex) 
-        {
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        catch (IOException ex) 
-        {
-            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // </editor-fold >
     }
-    private void des(){
+
+    private void editFalse() {
         txtNc.setEditable(false);
         txtNombres.setEditable(false);
         txtAP.setEditable(false);
         txtAM.setEditable(false);
     }
+
+    private void cBtn_tbl() {
+        if (btnMod.isEnabled()) {
+            btnMod.setEnabled(false);
+        } else {
+            btnMod.setEnabled(true);
+        }
+        if (btnConf.isEnabled()) {
+            btnConf.setEnabled(false);
+        } else {
+            btnConf.setEnabled(true);
+        }
+        if (btnElim.isEnabled()) {
+            btnElim.setEnabled(false);
+        } else {
+            btnElim.setEnabled(true);
+        }
+    }
+
+    public void reload() {
+        for (int i = 0; i < tblAlumno.getRowCount(); i++) {
+            FileOutputStream writer;
+            try {
+                writer = new FileOutputStream(Alumno.File, false);
+                writer.write(("").getBytes());
+                writer.close();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+    
+    private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombresActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        if (!btnConf.isEnabled()) {
+            clearField();
+            cField();
+            cButton();
+            txtNc.requestFocus();
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        try {
+            esBla();
+        } catch (E_mailExecption e) {
+            showMessageDialog(rootPane, e.getMessage());
+            return;
+        }
+        Alumno a = new Alumno(txtNc.getText(), txtNombres.getText(), txtAP.getText(), txtAM.getText());
+        a.save();
+        clearField();
+        cButton();
+        cField();
+        txtNc.requestFocus();
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String nc = showInputDialog(this, "Número de control a buscar");
+        Alumno a = new Alumno();
+        a.search(nc);
+        llenarCampos(a);
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    private void txtNcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcKeyTyped
+        char c = evt.getKeyChar();
+        if (((c < '0') || (c > '9')) && (c != '\b')) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNcKeyTyped
+    private void txtNombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombresKeyTyped
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombresKeyTyped
+    private void txtAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAPKeyTyped
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAPKeyTyped
+    private void txtAMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAMKeyTyped
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtAMKeyTyped
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
+        tblReload();
+    }//GEN-LAST:event_btnTodosActionPerformed
+
     private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
         // TODO add your handling code here:
-        int a=tblAlumno.getSelectedRow();    
-        if (tblAlumno.getSelectedRow()>=0) {
+        int a = tblAlumno.getSelectedRow();
+        if (tblAlumno.getSelectedRow() >= 0) {
             tblAlumno.setEnabled(false);
-            reloadbot();
+            cBtn_tbl();
             txtNc.setEditable(true);
             txtNombres.setEditable(true);
             txtAP.setEditable(true);
@@ -512,75 +540,56 @@ public class VentAlum extends javax.swing.JFrame {
             txtAP.setText(tblAlumno.getValueAt(a, 2).toString());
             txtAM.setText(tblAlumno.getValueAt(a, 3).toString());
             txtEmail.setText("");
-            
-            
-        }                      
+
+        }
     }//GEN-LAST:event_btnModActionPerformed
-    private void reloadbot(){
-        if(btnMod.isEnabled())btnMod.setEnabled(false);else btnMod.setEnabled(true);
-        if(btnConf.isEnabled())btnConf.setEnabled(false);else btnConf.setEnabled(true);
-        if(btnElim.isEnabled())btnElim.setEnabled(false);else btnElim.setEnabled(true);
-    }
+
     private void btnConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfActionPerformed
         // TODO add your handling code here:
-        int a=tblAlumno.getSelectedRow();
-        reloadbot();
-        if (eBl()==true) {
-            Object O[]=new Object[5];
-            O[0]=txtNc.getText();
-            O[1]=txtNombres.getText();
-            O[2]=txtAP.getText();
-            O[3]=txtAM.getText();
-            O[4]=tblAlumno.getValueAt(a, 4).toString();
+        int a = tblAlumno.getSelectedRow();
+        cBtn_tbl();
+        if (espBla_boolean() == true) {
+            Object O[] = new Object[5];
+            O[0] = txtNc.getText();
+            O[1] = txtNombres.getText();
+            O[2] = txtAP.getText();
+            O[3] = txtAM.getText();
+            O[4] = tblAlumno.getValueAt(a, 4).toString();
             modelo.removeRow(a);
             modelo.insertRow(a, O);
-            reload();            
-            for (int i = 0; i < tblAlumno.getRowCount(); i++) {   
+            reload();
+            for (int i = 0; i < tblAlumno.getRowCount(); i++) {
                 Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
-                    tblAlumno.getValueAt(i, 1).toString(),
-                    tblAlumno.getValueAt(i, 2).toString(),
-                    tblAlumno.getValueAt(i, 3).toString());       
-                b.guardar();
+                        tblAlumno.getValueAt(i, 1).toString(),
+                        tblAlumno.getValueAt(i, 2).toString(),
+                        tblAlumno.getValueAt(i, 3).toString());
+                b.save();
             }
             tblAlumno.setEnabled(true);
         }
-        limpiarCampos();
+        clearField();
         tblReload();
-        des();
+        editFalse();
     }//GEN-LAST:event_btnConfActionPerformed
-
     private void btnElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimActionPerformed
         // TODO add your handling code here:
-        int a=tblAlumno.getSelectedRow();
-        reloadbot();
-        modelo.removeRow(a);           
-        reload();            
-        for (int i = 0; i < tblAlumno.getRowCount(); i++) {   
+        int a = tblAlumno.getSelectedRow();
+        cBtn_tbl();
+        modelo.removeRow(a);
+        reload();
+        for (int i = 0; i < tblAlumno.getRowCount(); i++) {
             Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
-                tblAlumno.getValueAt(i, 1).toString(),
-                tblAlumno.getValueAt(i, 2).toString(),
-                tblAlumno.getValueAt(i, 3).toString());       
-            b.guardar();
+                    tblAlumno.getValueAt(i, 1).toString(),
+                    tblAlumno.getValueAt(i, 2).toString(),
+                    tblAlumno.getValueAt(i, 3).toString());
+            b.save();
         }
         tblAlumno.setEnabled(true);
-        limpiarCampos();
-        des();
+        clearField();
+        editFalse();
         tblReload();
     }//GEN-LAST:event_btnElimActionPerformed
-    public void reload(){
-        for (int i = 0; i < tblAlumno.getRowCount(); i++) {
-            FileOutputStream writer;   
-            try {
-                writer = new FileOutputStream("ALUMNOS.DAT",false);
-                writer.write(("").getBytes()); writer.close(); 
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-       
-    }
+    
     
     /**
      * @param args the command line arguments
@@ -617,9 +626,7 @@ public class VentAlum extends javax.swing.JFrame {
             }
         });
     }
-    
     private DefaultTableModel modelo;
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
@@ -643,8 +650,4 @@ public class VentAlum extends javax.swing.JFrame {
     private javax.swing.JTextField txtNc;
     private javax.swing.JTextField txtNombres;
     // End of variables declaration//GEN-END:variables
-
-    void llenardatos(Alumno alumno) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
