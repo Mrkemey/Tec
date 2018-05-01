@@ -7,7 +7,6 @@ package FluData;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -224,7 +223,7 @@ public class Ventdata extends javax.swing.JFrame {
                FileReader f = new FileReader(archivo);
                BufferedReader b = new BufferedReader(f);
                while((cadena = b.readLine())!=null) {
-                    cad=cad+cadena;
+                    cad=cad+cadena+"\n";
                }
                txtArea.setText(cad);
             }
