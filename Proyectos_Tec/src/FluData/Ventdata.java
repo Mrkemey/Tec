@@ -263,10 +263,8 @@ public class Ventdata extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ventdata().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Ventdata().setVisible(true);
         });
     }
 
