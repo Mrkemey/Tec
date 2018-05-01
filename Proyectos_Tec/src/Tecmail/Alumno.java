@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Tecmail;
 
-import java.io.DataInput;
-import java.io.DataInputStream;
+
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,39 +8,31 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.swing.JOptionPane.*;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
 /**
  *
- * @author jmanu
+ * @author SG-A1
  */
 public class Alumno {
-    String nc,nombres,aPat,aMat,correo;
+    private String nc,nombres,apaterno,amaterno;
+    private String email;
+    public static String File="Alumnos.dat";
 
     public Alumno() {
     }
-    
 
-    public Alumno(String nc, String nombres, String aPat, String aMat) {
+    public Alumno(String nc, String nombres, String apaterno, String amaterno) {
         this.nc = nc;
         this.nombres = nombres;
-        this.aPat = aPat;
-        this.aMat = aMat;
-    }
-
-    public Alumno(String nc, String nombres, String aPat, String aMat, String correo) {
-        this.nc = nc;
-        this.nombres = nombres;
-        this.aPat = aPat;
-        this.aMat = aMat;
-        this.correo = correo;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+        this.apaterno = apaterno;
+        this.amaterno = amaterno;
     }
 
     public String getNc() {
@@ -65,62 +51,96 @@ public class Alumno {
         this.nombres = nombres;
     }
 
-    public String getaPat() {
-        return aPat;
+    public String getApaterno() {
+        return apaterno;
     }
 
-    public void setaPat(String aPat) {
-        this.aPat = aPat;
+    public void setApaterno(String apaterno) {
+        this.apaterno = apaterno;
     }
 
-    public String getaMat() {
-        return aMat;
+    public String getAmaterno() {
+        return amaterno;
     }
 
-    public void setaMat(String aMat) {
-        this.aMat = aMat;
+    public void setAmaterno(String amaterno) {
+        this.amaterno = amaterno;
     }
-    public void save(){
-        FileOutputStream fb=null;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void reload(){
+      FileOutputStream writer;   
         try {
-            fb = new FileOutputStream("Alumnos.dat",true);
-            java.io.DataOutputStream fdw=new java.io.DataOutputStream(fb);
-            fdw.writeUTF(nc);
-            fdw.writeUTF(nombres);
-            fdw.writeUTF(aPat);
-            fdw.writeUTF(aMat);
-            correo=aPat+"@assdd.com";
-            fdw.writeUTF(correo);
-            fdw.flush();
+            writer = new FileOutputStream(File,true);
+            writer.write(("").getBytes()); writer.close(); 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    public void buscar(String nc){
-        try {
-            FileInputStream fb = new FileInputStream("Alumnos.dat");
-            DataInputStream fdr= new DataInputStream(fb);
-            while (fdr!=null) {                
-             this.nc=fdr.readUTF();
-            nombres=fdr.readUTF();
-            aPat=fdr.readUTF();
-            aMat=fdr.readUTF();
-            correo=fdr.readUTF();
-                if (nc.equals(this.nc)) {
-                    break;
-                }
-            }
-            
-        }catch(EOFException ex){
-           Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex); 
         } 
-        catch (FileNotFoundException ex) {
-            Logger.getLogger(VenAlum.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+    }
+    public void guardar(){
+        FileOutputStream fb = null;
+        try {
+            fb = new FileOutputStream(File,true);
+            java.io.DataOutputStream fdw = new java.io.DataOutputStream(fb);
+            fdw.writeUTF(nc);
+            fdw.writeUTF(nombres);
+            fdw.writeUTF(apaterno);
+            fdw.writeUTF(amaterno);
+            email = nombres.substring(0, 1)+apaterno+amaterno.substring(0, 1)+"@ittepic.edu.mx";
+            fdw.writeUTF(email.toLowerCase());
+            fdw.flush();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+     public void buscar(String nc){
+        FileInputStream fb = null;
+        try {
+            fb = new FileInputStream(File);
+            java.io.DataInputStream fdr = new java.io.DataInputStream(fb);
+            
+            while(fdr!=null)
+            {
+                this.nc=fdr.readUTF();
+                nombres=fdr.readUTF();
+                apaterno=fdr.readUTF();
+                amaterno=fdr.readUTF();
+                email=fdr.readUTF();
+                if(nc.equals(this.nc))
+                {
+                    break;
+                }
+            }
+        } 
+        catch(EOFException ex)
+        {
+            //Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+            showMessageDialog(null, "E"+"L ALUMNO NO FUE ENCONTRADO".toLowerCase()+nc);
+            setNc("");
+            setNombres("");
+            setApaterno("");
+            setAmaterno("");
+            setEmail("");
+        }
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch (IOException ex) 
+        {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 }
