@@ -451,7 +451,7 @@ public class VentAlum extends javax.swing.JFrame {
             }
         }
 
-    }// </editor-fold>
+    }// </editor-fold> 
     // <editor-fold defaultstate="collapsed" desc="Objetos">
     private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
         // TODO add your handling code here:
