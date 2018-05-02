@@ -24,6 +24,7 @@ public class Alumno {
     private String nc, nombres, apaterno, amaterno;
     private String email;
     public static String File = "Alumnos.dat";
+    // <editor-fold defaultstate="collapsed" desc="Constructores">
     public Alumno() {
     }
     public Alumno(String nc, String nombres, String apaterno, String amaterno) {
@@ -31,7 +32,7 @@ public class Alumno {
         this.nombres = nombres;
         this.apaterno = apaterno;
         this.amaterno = amaterno;
-    }
+    }// </editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Get&Set">
     public String getNc() {
         return nc;
@@ -71,7 +72,8 @@ public class Alumno {
 
     public void setEmail(String email) {
         this.email = email;
-    }// </editor-fold>  
+    }// </editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Funciones Principales">
     public void save() {
         FileOutputStream fb = null;
         try {
@@ -119,5 +121,5 @@ public class Alumno {
         } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }// </editor-fold>
 }
