@@ -21,9 +21,11 @@ import static javax.swing.JOptionPane.*;
  * @author SG-A1
  */
 public class Alumno {
+    // <editor-fold defaultstate="collapsed" desc="Variables">
     private String nc, nombres, apaterno, amaterno;
     private String email;
     public static String File = "Alumnos.dat";
+    // </editor-fold>  
     // <editor-fold defaultstate="collapsed" desc="Constructores">
     public Alumno() {
     }
