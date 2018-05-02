@@ -85,7 +85,7 @@ public class Alumno {
             fdw.writeUTF(nombres);
             fdw.writeUTF(apaterno);
             fdw.writeUTF(amaterno);
-            email = nombres.substring(0, 1) + apaterno + amaterno.substring(0, 1) + "@ittepic.edu.mx";
+            email = nombres.substring(0, 2) + apaterno + amaterno.substring(0, 1) + "@ittepic.edu.mx";
             fdw.writeUTF(email.toLowerCase());
             fdw.flush();
         } catch (FileNotFoundException ex) {
@@ -123,5 +123,30 @@ public class Alumno {
         } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public boolean sea(String nc) {
+        FileInputStream fb;
+        try {
+            fb = new FileInputStream(File);
+            java.io.DataInputStream fdr = new java.io.DataInputStream(fb);
+
+            while (true) {
+                this.nc = fdr.readUTF();
+                nombres = fdr.readUTF();
+                apaterno = fdr.readUTF();
+                amaterno = fdr.readUTF();
+                email = fdr.readUTF();
+                if (nc.equals(this.nc)) {
+                    return true;
+                }
+            }
+        } catch (EOFException ex) {
+            //Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);           
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }// </editor-fold>
 }

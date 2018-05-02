@@ -45,21 +45,23 @@ public class VentAlum extends javax.swing.JFrame {
         txtNombres = new javax.swing.JTextField();
         txtAP = new javax.swing.JTextField();
         txtAM = new javax.swing.JTextField();
-        btnNuevo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlumno = new javax.swing.JTable();
+        jToolBar1 = new javax.swing.JToolBar();
+        btnNuevo = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         btnTodos = new javax.swing.JButton();
         btnMod = new javax.swing.JButton();
         btnConf = new javax.swing.JButton();
         btnElim = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         jLabel1.setText("Num.Control");
 
@@ -102,31 +104,6 @@ public class VentAlum extends javax.swing.JFrame {
             }
         });
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
-
-        btnGuardar.setText("Guardar");
-        btnGuardar.setEnabled(false);
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnCancelar.setText("Cancelar");
-        btnCancelar.setEnabled(false);
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("Correo Electronico:");
 
         txtEmail.setEditable(false);
@@ -148,12 +125,53 @@ public class VentAlum extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblAlumno);
 
+        jToolBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jToolBar1.setRollover(true);
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnNuevo);
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.setEnabled(false);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnGuardar);
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setEnabled(false);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnCancelar);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnBuscar);
+
+        jLabel6.setText("|");
+        jToolBar1.add(jLabel6);
+
         btnTodos.setText("Mostrar");
         btnTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTodosActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnTodos);
 
         btnMod.setText("Modificar");
         btnMod.setEnabled(false);
@@ -162,6 +180,7 @@ public class VentAlum extends javax.swing.JFrame {
                 btnModActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnMod);
 
         btnConf.setText("Confirmar");
         btnConf.setEnabled(false);
@@ -170,6 +189,7 @@ public class VentAlum extends javax.swing.JFrame {
                 btnConfActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnConf);
 
         btnElim.setText("Eliminar");
         btnElim.setEnabled(false);
@@ -178,17 +198,15 @@ public class VentAlum extends javax.swing.JFrame {
                 btnElimActionPerformed(evt);
             }
         });
+        jToolBar1.add(btnElim);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -206,30 +224,20 @@ public class VentAlum extends javax.swing.JFrame {
                                         .addComponent(txtAP)
                                         .addComponent(txtNc)
                                         .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnTodos)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnMod)
-                                .addGap(235, 235, 235)
-                                .addComponent(btnConf)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnElim))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btnNuevo)
-                                    .addGap(20, 20, 20)
-                                    .addComponent(btnGuardar)
-                                    .addGap(235, 235, 235)
-                                    .addComponent(btnCancelar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(0, 339, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -249,23 +257,11 @@ public class VentAlum extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnBuscar))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTodos)
-                    .addComponent(btnMod)
-                    .addComponent(btnConf)
-                    .addComponent(btnElim))
-                .addGap(56, 56, 56)
                 .addComponent(jButton1)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -279,7 +275,7 @@ public class VentAlum extends javax.swing.JFrame {
         txtEmail.setText("");
     }
 
-    private void cField() {
+    private void changeField() {
         if (txtNc.isEditable()) {
             txtNc.setEditable(false);
         } else {
@@ -302,7 +298,7 @@ public class VentAlum extends javax.swing.JFrame {
         }
     }
 
-    private void cButton() {
+    private void cBtn() {
         if (btnNuevo.isEnabled()) {
             btnNuevo.setEnabled(false);
         } else {
@@ -326,7 +322,7 @@ public class VentAlum extends javax.swing.JFrame {
 
     }
 
-    public void esBla() {
+    public void whiSp() {
         if (txtNc.getText().equals("")) {
             txtNc.requestFocus();
             throw new E_mailExecption("Espacio en blanco");
@@ -348,7 +344,7 @@ public class VentAlum extends javax.swing.JFrame {
         }
     }
 
-    private void llenarCampos(Alumno a) {
+    private void fillField(Alumno a) {
         this.txtNc.setText(a.getNc());
         this.txtNombres.setText(a.getNombres());
         this.txtAP.setText(a.getApaterno());
@@ -356,7 +352,7 @@ public class VentAlum extends javax.swing.JFrame {
         this.txtEmail.setText(a.getEmail());
     }
 
-    public boolean espBla_boolean() {
+    public boolean whiSp_boolean() {
         if (txtNc.getText().equals("")) {
             txtNc.requestFocus();
             throw new E_mailExecption("Espacio en blanco");
@@ -379,13 +375,14 @@ public class VentAlum extends javax.swing.JFrame {
         return true;
     }
 
-    private void tblReload() {
-        FileInputStream fb;
+    private void reloadTbl() {
+        if (!btnGuardar.isEnabled()) {
+         FileInputStream fb;
         modelo.setRowCount(0);
         if (btnConf.isEnabled() != true) {
             btnMod.setEnabled(true);
         } else {
-            cBtn_tbl();
+            changeButton_tbl();
         }
         tblAlumno.setEnabled(true);
         try {
@@ -409,17 +406,21 @@ public class VentAlum extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // </editor-fold >
+        // </editor-fold >   
+        }else{
+            showMessageDialog(rootPane, "Termine de guardar o Cancele la accion");
+        }
+        
     }
 
-    private void editFalse() {
+    private void editDisable() {
         txtNc.setEditable(false);
         txtNombres.setEditable(false);
         txtAP.setEditable(false);
         txtAM.setEditable(false);
     }
 
-    private void cBtn_tbl() {
+    private void changeButton_tbl() {
         if (btnMod.isEnabled()) {
             btnMod.setEnabled(false);
         } else {
@@ -437,8 +438,8 @@ public class VentAlum extends javax.swing.JFrame {
         }
     }
 
-    public void reload() {
-        for (int i = 0; i < tblAlumno.getRowCount(); i++) {
+    public void reloadData() {
+        for (int i = -1; i < tblAlumno.getRowCount(); i++) {
             FileOutputStream writer;
             try {
                 writer = new FileOutputStream(Alumno.File, false);
@@ -459,31 +460,55 @@ public class VentAlum extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         if (!btnConf.isEnabled()) {
             clearField();
-            cField();
-            cButton();
+            changeField();
+            cBtn();
             txtNc.requestFocus();
+            btnMod.setEnabled(false);
+            btnConf.setEnabled(false);
+            btnElim.setEnabled(false);
+            tblAlumno.setEnabled(false);
+            btnMod.setEnabled(false);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         try {
-            esBla();
+            whiSp();
         } catch (E_mailExecption e) {
             showMessageDialog(rootPane, e.getMessage());
             return;
         }
-        Alumno a = new Alumno(txtNc.getText(), txtNombres.getText(), txtAP.getText(), txtAM.getText());
-        a.save();
-        clearField();
-        cButton();
-        cField();
-        txtNc.requestFocus();
-
+        try {
+           valiNC();
+           clearField();
+            cBtn();
+            changeField();
+            txtNc.requestFocus();
+        } catch (E_mailExecption e) {
+            showMessageDialog(rootPane, e.getMessage());
+        }             
     }//GEN-LAST:event_btnGuardarActionPerformed
+    public void valiNC()throws E_mailExecption{
+        Alumno a= new Alumno(txtNc.getText(), "", "", ""); ;
+        if (!a.sea(txtNc.getText())) {
+            Alumno b = new Alumno(txtNc.getText(), txtNombres.getText(), txtAP.getText(), txtAM.getText());
+            b.save();           
+        }else{
+            throw new E_mailExecption("Numero de control ya existente");
+        }
+    }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String nc = showInputDialog(this, "Número de control a buscar");
+        reloadTbl();
         Alumno a = new Alumno();
         a.search(nc);
-        llenarCampos(a);
+        for (int i = 0; i < tblAlumno.getRowCount(); i++) {
+            if (nc.equals(tblAlumno.getValueAt(i, 0).toString())) {
+                tblAlumno.setRowSelectionInterval(i, i);
+            }
+        }
+        
+        
+        fillField(a);
     }//GEN-LAST:event_btnBuscarActionPerformed
     private void txtNcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcKeyTyped
         char c = evt.getKeyChar();
@@ -517,7 +542,7 @@ public class VentAlum extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed
     private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
-        tblReload();
+        reloadTbl();
     }//GEN-LAST:event_btnTodosActionPerformed
 
     private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
@@ -525,7 +550,7 @@ public class VentAlum extends javax.swing.JFrame {
         int a = tblAlumno.getSelectedRow();
         if (tblAlumno.getSelectedRow() >= 0) {
             tblAlumno.setEnabled(false);
-            cBtn_tbl();
+            changeButton_tbl();
             txtNc.setEditable(true);
             txtNombres.setEditable(true);
             txtAP.setEditable(true);
@@ -542,36 +567,53 @@ public class VentAlum extends javax.swing.JFrame {
     private void btnConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfActionPerformed
         // TODO add your handling code here:
         int a = tblAlumno.getSelectedRow();
-        cBtn_tbl();
-        if (espBla_boolean() == true) {
+        changeButton_tbl();
+        if (whiSp_boolean() == true) {
             Object O[] = new Object[5];
-            O[0] = txtNc.getText();
-            O[1] = txtNombres.getText();
-            O[2] = txtAP.getText();
-            O[3] = txtAM.getText();
-            O[4] = tblAlumno.getValueAt(a, 4).toString();
-            modelo.removeRow(a);
-            modelo.insertRow(a, O);
-            reload();
-            for (int i = 0; i < tblAlumno.getRowCount(); i++) {
-                Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
-                        tblAlumno.getValueAt(i, 1).toString(),
-                        tblAlumno.getValueAt(i, 2).toString(),
-                        tblAlumno.getValueAt(i, 3).toString());
-                b.save();
+            try {
+                valiNC();
+                O[0] = txtNc.getText();
+                O[1] = txtNombres.getText();
+                O[2] = txtAP.getText();
+                O[3] = txtAM.getText();
+                O[4] = tblAlumno.getValueAt(a, 4).toString();
+                modelo.removeRow(a);
+                modelo.insertRow(a, O);
+                reloadData();
+                for (int i = 0; i < tblAlumno.getRowCount(); i++) {
+//                    if(txtNc.getText().equals(tblAlumno.getValueAt(i, 0).toString())){
+//                    Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
+//                            tblAlumno.getValueAt(i, 1).toString(),
+//                            tblAlumno.getValueAt(i, 2).toString(),
+//                            tblAlumno.getValueAt(i, 3).toString());
+//                    b.save();
+//                    }
+                    Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
+                            tblAlumno.getValueAt(i, 1).toString(),
+                            tblAlumno.getValueAt(i, 2).toString(),
+                            tblAlumno.getValueAt(i, 3).toString());
+                    b.save();
+                }
+                tblAlumno.setEnabled(true);
+                clearField();
+                reloadTbl();
+                editDisable();
+            } catch (E_mailExecption e) {
+                showMessageDialog(rootPane, e);
             }
-            tblAlumno.setEnabled(true);
+            
+                
+            
+            
         }
-        clearField();
-        tblReload();
-        editFalse();
+        
     }//GEN-LAST:event_btnConfActionPerformed
     private void btnElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimActionPerformed
         // TODO add your handling code here:
         int a = tblAlumno.getSelectedRow();
-        cBtn_tbl();
+        changeButton_tbl();
         modelo.removeRow(a);
-        reload();
+        reloadData();
         for (int i = 0; i < tblAlumno.getRowCount(); i++) {
             Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
                     tblAlumno.getValueAt(i, 1).toString(),
@@ -581,11 +623,19 @@ public class VentAlum extends javax.swing.JFrame {
         }
         tblAlumno.setEnabled(true);
         clearField();
-        editFalse();
-        tblReload();
+        editDisable();
+        reloadTbl();
     }//GEN-LAST:event_btnElimActionPerformed
-    // </editor-fold>
-    
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:;
+        if (!btnConf.isEnabled()) {
+            clearField();
+            changeField();
+            cBtn();
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+    // </editor-fold>    
     /**
      * @param args the command line arguments
      */
@@ -621,7 +671,8 @@ public class VentAlum extends javax.swing.JFrame {
             }
         });
     }
-    private DefaultTableModel modelo;
+    // <editor-fold defaultstate="collapsed" desc="Variables">
+    private final DefaultTableModel modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
@@ -637,7 +688,9 @@ public class VentAlum extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTable tblAlumno;
     private javax.swing.JTextField txtAM;
     private javax.swing.JTextField txtAP;
@@ -645,4 +698,5 @@ public class VentAlum extends javax.swing.JFrame {
     private javax.swing.JTextField txtNc;
     private javax.swing.JTextField txtNombres;
     // End of variables declaration//GEN-END:variables
+    // </editor-fold> 
 }
