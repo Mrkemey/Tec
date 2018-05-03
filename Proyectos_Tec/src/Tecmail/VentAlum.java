@@ -267,6 +267,28 @@ public class VentAlum extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     // <editor-fold defaultstate="collapsed" desc="Funciones">
+    //-----------------------------------------------------------------------------------
+    private boolean valNc(){
+        boolean a=true;
+        for (int i = 0; i < tblAlumno.getRowCount(); i++) {
+            if (txtNc.getText().equals(tblAlumno.getValueAt(i, 0).toString())) {
+                a=false;
+            }
+        }
+        if (txtNc.getText().equals(tblAlumno.getValueAt(tblAlumno.getSelectedRow(), 0))) {
+            a=true;
+        }
+        return a;
+    }
+    public void valiNC()throws E_mailExecption{
+        Alumno a= new Alumno(txtNc.getText(), "", "", ""); ;
+        if (!a.sea(txtNc.getText())) {
+            Alumno b = new Alumno(txtNc.getText(), txtNombres.getText(), txtAP.getText(), txtAM.getText());
+            b.save();           
+        }else{
+            throw new E_mailExecption("Ese Numero de control, ya a sido registrado");
+        }
+    }
     private void clearField() {
         txtNc.setText("");
         txtNombres.setText("");
@@ -274,7 +296,6 @@ public class VentAlum extends javax.swing.JFrame {
         txtAM.setText("");
         txtEmail.setText("");
     }
-
     private void changeField() {
         if (txtNc.isEditable()) {
             txtNc.setEditable(false);
@@ -297,7 +318,6 @@ public class VentAlum extends javax.swing.JFrame {
             txtAM.setEditable(true);
         }
     }
-
     private void cBtn() {
         if (btnNuevo.isEnabled()) {
             btnNuevo.setEnabled(false);
@@ -321,29 +341,27 @@ public class VentAlum extends javax.swing.JFrame {
         }
 
     }
-
     public void whiSp() {
         if (txtNc.getText().equals("")) {
             txtNc.requestFocus();
-            throw new E_mailExecption("Espacio en blanco");
+            throw new E_mailExecption("Escriba el Num. Control");
         } else {
             if (txtNombres.getText().equals("")) {
                 txtNombres.requestFocus();
-                throw new E_mailExecption("Espacio en blanco");
+                throw new E_mailExecption("Escriba el Nombre");
             } else {
                 if (txtAP.getText().equals("")) {
                     txtAP.requestFocus();
-                    throw new E_mailExecption("Espacio en blanco");
+                    throw new E_mailExecption("Escriba el Apellido Paterno");
                 } else {
                     if (txtAM.getText().equals("")) {
                         txtAM.requestFocus();
-                        throw new E_mailExecption("Espacio en blanco");
+                        throw new E_mailExecption("Escriba el Apellido Materno");
                     }
                 }
             }
         }
     }
-
     private void fillField(Alumno a) {
         this.txtNc.setText(a.getNc());
         this.txtNombres.setText(a.getNombres());
@@ -351,30 +369,24 @@ public class VentAlum extends javax.swing.JFrame {
         this.txtAM.setText(a.getAmaterno());
         this.txtEmail.setText(a.getEmail());
     }
-
     public boolean whiSp_boolean() {
         if (txtNc.getText().equals("")) {
             txtNc.requestFocus();
-            throw new E_mailExecption("Espacio en blanco");
         } else {
             if (txtNombres.getText().equals("")) {
                 txtNombres.requestFocus();
-                throw new E_mailExecption("Espacio en blanco");
             } else {
                 if (txtAP.getText().equals("")) {
                     txtAP.requestFocus();
-                    throw new E_mailExecption("Espacio en blanco");
                 } else {
                     if (txtAM.getText().equals("")) {
-                        txtAM.requestFocus();
-                        throw new E_mailExecption("Espacio en blanco");
+                        txtAM.requestFocus();                        
                     }
                 }
             }
         }
         return true;
     }
-
     private void reloadTbl() {
         if (!btnGuardar.isEnabled()) {
          FileInputStream fb;
@@ -412,14 +424,12 @@ public class VentAlum extends javax.swing.JFrame {
         }
         
     }
-
     private void editDisable() {
         txtNc.setEditable(false);
         txtNombres.setEditable(false);
         txtAP.setEditable(false);
         txtAM.setEditable(false);
     }
-
     private void changeButton_tbl() {
         if (btnMod.isEnabled()) {
             btnMod.setEnabled(false);
@@ -437,7 +447,6 @@ public class VentAlum extends javax.swing.JFrame {
             btnElim.setEnabled(true);
         }
     }
-
     public void reloadData() {
         for (int i = -1; i < tblAlumno.getRowCount(); i++) {
             FileOutputStream writer;
@@ -454,6 +463,7 @@ public class VentAlum extends javax.swing.JFrame {
 
     }// </editor-fold> 
     // <editor-fold defaultstate="collapsed" desc="Objetos">
+    //-----------------------------------------------------------------------------------
     private void txtNombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombresActionPerformed
@@ -487,15 +497,6 @@ public class VentAlum extends javax.swing.JFrame {
             showMessageDialog(rootPane, e.getMessage());
         }             
     }//GEN-LAST:event_btnGuardarActionPerformed
-    public void valiNC()throws E_mailExecption{
-        Alumno a= new Alumno(txtNc.getText(), "", "", ""); ;
-        if (!a.sea(txtNc.getText())) {
-            Alumno b = new Alumno(txtNc.getText(), txtNombres.getText(), txtAP.getText(), txtAM.getText());
-            b.save();           
-        }else{
-            throw new E_mailExecption("Numero de control ya existente");
-        }
-    }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String nc = showInputDialog(this, "Número de control a buscar");
         reloadTbl();
@@ -544,7 +545,6 @@ public class VentAlum extends javax.swing.JFrame {
     private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
         reloadTbl();
     }//GEN-LAST:event_btnTodosActionPerformed
-
     private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
         // TODO add your handling code here:
         int a = tblAlumno.getSelectedRow();
@@ -563,15 +563,12 @@ public class VentAlum extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnModActionPerformed
-
     private void btnConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfActionPerformed
         // TODO add your handling code here:
-        int a = tblAlumno.getSelectedRow();
-        changeButton_tbl();
-        if (whiSp_boolean() == true) {
-            Object O[] = new Object[5];
-            try {
-                valiNC();
+        int a = tblAlumno.getSelectedRow();        
+        if (whiSp_boolean()) {
+            if (valNc()) {
+                Object O[] = new Object[5];
                 O[0] = txtNc.getText();
                 O[1] = txtNombres.getText();
                 O[2] = txtAP.getText();
@@ -581,30 +578,22 @@ public class VentAlum extends javax.swing.JFrame {
                 modelo.insertRow(a, O);
                 reloadData();
                 for (int i = 0; i < tblAlumno.getRowCount(); i++) {
-//                    if(txtNc.getText().equals(tblAlumno.getValueAt(i, 0).toString())){
-//                    Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
-//                            tblAlumno.getValueAt(i, 1).toString(),
-//                            tblAlumno.getValueAt(i, 2).toString(),
-//                            tblAlumno.getValueAt(i, 3).toString());
-//                    b.save();
-//                    }
                     Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
                             tblAlumno.getValueAt(i, 1).toString(),
                             tblAlumno.getValueAt(i, 2).toString(),
                             tblAlumno.getValueAt(i, 3).toString());
                     b.save();
                 }
+                changeButton_tbl();
                 tblAlumno.setEnabled(true);
                 clearField();
                 reloadTbl();
-                editDisable();
-            } catch (E_mailExecption e) {
-                showMessageDialog(rootPane, e);
-            }
-            
-                
-            
-            
+                editDisable(); 
+            } else {
+                showMessageDialog(this, "Ese Numero de control, ya a sido registrado");
+            }                           
+        }else{
+            showMessageDialog(this, "Hay espacios en blanco");
         }
         
     }//GEN-LAST:event_btnConfActionPerformed
@@ -626,7 +615,6 @@ public class VentAlum extends javax.swing.JFrame {
         editDisable();
         reloadTbl();
     }//GEN-LAST:event_btnElimActionPerformed
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:;
         if (!btnConf.isEnabled()) {
