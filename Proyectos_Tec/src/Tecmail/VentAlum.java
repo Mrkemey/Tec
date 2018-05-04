@@ -58,10 +58,14 @@ public class VentAlum extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         btnTodos = new javax.swing.JButton();
         btnMod = new javax.swing.JButton();
-        btnConf = new javax.swing.JButton();
         btnElim = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("Num.Control");
 
@@ -126,8 +130,9 @@ public class VentAlum extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblAlumno);
 
         jToolBar1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jToolBar1.setRollover(true);
+        jToolBar1.setFloatable(false);
 
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/nuevo-usuario.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +141,7 @@ public class VentAlum extends javax.swing.JFrame {
         });
         jToolBar1.add(btnNuevo);
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/guardar (1).png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setEnabled(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +151,7 @@ public class VentAlum extends javax.swing.JFrame {
         });
         jToolBar1.add(btnGuardar);
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/cancelar.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setEnabled(false);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +161,7 @@ public class VentAlum extends javax.swing.JFrame {
         });
         jToolBar1.add(btnCancelar);
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/buscar-en-carpeta.png"))); // NOI18N
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +173,7 @@ public class VentAlum extends javax.swing.JFrame {
         jLabel6.setText("|");
         jToolBar1.add(jLabel6);
 
+        btnTodos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ver-simbolo-de-ojo-de-interfaz.png"))); // NOI18N
         btnTodos.setText("Mostrar");
         btnTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,6 +182,7 @@ public class VentAlum extends javax.swing.JFrame {
         });
         jToolBar1.add(btnTodos);
 
+        btnMod.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/editar.png"))); // NOI18N
         btnMod.setText("Modificar");
         btnMod.setEnabled(false);
         btnMod.addActionListener(new java.awt.event.ActionListener() {
@@ -182,15 +192,7 @@ public class VentAlum extends javax.swing.JFrame {
         });
         jToolBar1.add(btnMod);
 
-        btnConf.setText("Confirmar");
-        btnConf.setEnabled(false);
-        btnConf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfActionPerformed(evt);
-            }
-        });
-        jToolBar1.add(btnConf);
-
+        btnElim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/boton-quitar-redondeado.png"))); // NOI18N
         btnElim.setText("Eliminar");
         btnElim.setEnabled(false);
         btnElim.addActionListener(new java.awt.event.ActionListener() {
@@ -225,19 +227,17 @@ public class VentAlum extends javax.swing.JFrame {
                                         .addComponent(txtNc)
                                         .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 589, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtNc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -281,7 +281,7 @@ public class VentAlum extends javax.swing.JFrame {
         return a;
     }
     public void valiNC()throws E_mailExecption{
-        Alumno a= new Alumno(txtNc.getText(), "", "", ""); ;
+        Alumno a= new Alumno(txtNc.getText(), "", "", "");
         if (!a.sea(txtNc.getText())) {
             Alumno b = new Alumno(txtNc.getText(), txtNombres.getText(), txtAP.getText(), txtAM.getText());
             b.save();           
@@ -391,36 +391,39 @@ public class VentAlum extends javax.swing.JFrame {
         if (!btnGuardar.isEnabled()) {
          FileInputStream fb;
         modelo.setRowCount(0);
-        if (btnConf.isEnabled() != true) {
-            btnMod.setEnabled(true);
-        } else {
-            changeButton_tbl();
-        }
-        tblAlumno.setEnabled(true);
-        try {
-            fb = new FileInputStream(Alumno.File);
-            java.io.DataInputStream fdr = new java.io.DataInputStream(fb);
-            Object O[] = new Object[5];
-            while (true) {
-                O[0] = fdr.readUTF();
-                O[1] = fdr.readUTF();
-                O[2] = fdr.readUTF();
-                O[3] = fdr.readUTF();
-                O[4] = fdr.readUTF();
-                modelo.addRow(O);
+            if (!Edit) {
+                btnMod.setEnabled(true);
+            } else {
+                changeButton_tbl();
             }
+            tblAlumno.setEnabled(true);
+            try {
+                fb = new FileInputStream(Alumno.File);
+                java.io.DataInputStream fdr = new java.io.DataInputStream(fb);
+                Object O[] = new Object[5];
+                while (true) {
+                    O[0] = fdr.readUTF();
+                    O[1] = fdr.readUTF();
+                    O[2] = fdr.readUTF();
+                    O[3] = fdr.readUTF();
+                    O[4] = fdr.readUTF();
+                    modelo.addRow(O);
+                }
 
-        } // <editor-fold defaultstate="collapsed" desc="Catches">
-        catch (EOFException ex) {
-            //editar, eliminar.
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        // </editor-fold >   
-        }else{
-            showMessageDialog(rootPane, "Termine de guardar o Cancele la accion");
+            } // <editor-fold defaultstate="collapsed" desc="Catches">
+            catch (EOFException ex) {
+                //editar, eliminar.
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            // </editor-fold >   
+        } else {
+            if (!Edit) {
+                showMessageDialog(rootPane, "Termine de guardar o cancele la accion");
+            }
+            
         }
         
     }
@@ -435,12 +438,7 @@ public class VentAlum extends javax.swing.JFrame {
             btnMod.setEnabled(false);
         } else {
             btnMod.setEnabled(true);
-        }
-        if (btnConf.isEnabled()) {
-            btnConf.setEnabled(false);
-        } else {
-            btnConf.setEnabled(true);
-        }
+        }        
         if (btnElim.isEnabled()) {
             btnElim.setEnabled(false);
         } else {
@@ -468,48 +466,84 @@ public class VentAlum extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombresActionPerformed
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        if (!btnConf.isEnabled()) {
+        if (!Edit) {
             clearField();
             changeField();
             cBtn();
             txtNc.requestFocus();
-            btnMod.setEnabled(false);
-            btnConf.setEnabled(false);
+            btnMod.setEnabled(false);           
             btnElim.setEnabled(false);
             tblAlumno.setEnabled(false);
             btnMod.setEnabled(false);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try {
+        if (Edit) {
+            int a = tblAlumno.getSelectedRow();        
+            if (whiSp_boolean()) {
+                if (valNc()) {
+                    Object O[] = new Object[5];
+                    O[0] = txtNc.getText();
+                    O[1] = txtNombres.getText();
+                    O[2] = txtAP.getText();
+                    O[3] = txtAM.getText();
+                    O[4] = tblAlumno.getValueAt(a, 4).toString();
+                    modelo.removeRow(a);
+                    modelo.insertRow(a, O);
+                    reloadData();
+                    for (int i = 0; i < tblAlumno.getRowCount(); i++) {
+                        Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
+                                tblAlumno.getValueAt(i, 1).toString(),
+                                tblAlumno.getValueAt(i, 2).toString(),
+                                tblAlumno.getValueAt(i, 3).toString());
+                        b.save();
+                    }
+                    changeButton_tbl();
+                    tblAlumno.setEnabled(true);
+                    clearField();
+                    reloadTbl();
+                    editDisable();
+                    Edit=false;
+                    btnGuardar.setEnabled(Edit);
+                    btnCancelar.setEnabled(Edit);
+                } else {
+                    showMessageDialog(this, "Ese Numero de control, ya a sido registrado");
+                }                           
+            }else{
+                showMessageDialog(this, "Hay espacios en blanco");
+            }
+        } else {
+            try {
             whiSp();
-        } catch (E_mailExecption e) {
-            showMessageDialog(rootPane, e.getMessage());
-            return;
+            } catch (E_mailExecption e) {
+                showMessageDialog(rootPane, e.getMessage());
+                return;
+            }
+            try {
+               valiNC();
+               clearField();
+                cBtn();
+                changeField();
+                txtNc.requestFocus();
+            } catch (E_mailExecption e) {
+                showMessageDialog(rootPane, e.getMessage());
+            } 
         }
-        try {
-           valiNC();
-           clearField();
-            cBtn();
-            changeField();
-            txtNc.requestFocus();
-        } catch (E_mailExecption e) {
-            showMessageDialog(rootPane, e.getMessage());
-        }             
+                     
     }//GEN-LAST:event_btnGuardarActionPerformed
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String nc = showInputDialog(this, "Número de control a buscar");
-        reloadTbl();
+        if (nc!=null) {
+         reloadTbl();
         Alumno a = new Alumno();
         a.search(nc);
         for (int i = 0; i < tblAlumno.getRowCount(); i++) {
             if (nc.equals(tblAlumno.getValueAt(i, 0).toString())) {
                 tblAlumno.setRowSelectionInterval(i, i);
             }
-        }
-        
-        
-        fillField(a);
+        }     
+        fillField(a);   
+        }       
     }//GEN-LAST:event_btnBuscarActionPerformed
     private void txtNcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNcKeyTyped
         char c = evt.getKeyChar();
@@ -545,10 +579,14 @@ public class VentAlum extends javax.swing.JFrame {
     private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
         reloadTbl();
     }//GEN-LAST:event_btnTodosActionPerformed
+    private boolean Edit=false;
     private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:     
         int a = tblAlumno.getSelectedRow();
         if (tblAlumno.getSelectedRow() >= 0) {
+            Edit=true;
+            btnGuardar.setEnabled(true);
+            btnCancelar.setEnabled(Edit);
             tblAlumno.setEnabled(false);
             changeButton_tbl();
             txtNc.setEditable(true);
@@ -563,40 +601,6 @@ public class VentAlum extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnModActionPerformed
-    private void btnConfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfActionPerformed
-        // TODO add your handling code here:
-        int a = tblAlumno.getSelectedRow();        
-        if (whiSp_boolean()) {
-            if (valNc()) {
-                Object O[] = new Object[5];
-                O[0] = txtNc.getText();
-                O[1] = txtNombres.getText();
-                O[2] = txtAP.getText();
-                O[3] = txtAM.getText();
-                O[4] = tblAlumno.getValueAt(a, 4).toString();
-                modelo.removeRow(a);
-                modelo.insertRow(a, O);
-                reloadData();
-                for (int i = 0; i < tblAlumno.getRowCount(); i++) {
-                    Alumno b = new Alumno(tblAlumno.getValueAt(i, 0).toString(),
-                            tblAlumno.getValueAt(i, 1).toString(),
-                            tblAlumno.getValueAt(i, 2).toString(),
-                            tblAlumno.getValueAt(i, 3).toString());
-                    b.save();
-                }
-                changeButton_tbl();
-                tblAlumno.setEnabled(true);
-                clearField();
-                reloadTbl();
-                editDisable(); 
-            } else {
-                showMessageDialog(this, "Ese Numero de control, ya a sido registrado");
-            }                           
-        }else{
-            showMessageDialog(this, "Hay espacios en blanco");
-        }
-        
-    }//GEN-LAST:event_btnConfActionPerformed
     private void btnElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimActionPerformed
         // TODO add your handling code here:
         int a = tblAlumno.getSelectedRow();
@@ -614,15 +618,31 @@ public class VentAlum extends javax.swing.JFrame {
         clearField();
         editDisable();
         reloadTbl();
+        Edit=false;
+        btnGuardar.setEnabled(Edit);
+        btnCancelar.setEnabled(Edit);
     }//GEN-LAST:event_btnElimActionPerformed
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:;
-        if (!btnConf.isEnabled()) {
+        if (!Edit) {
             clearField();
             changeField();
             cBtn();
+        }else{
+            tblAlumno.setEnabled(true);
+            clearField();
+            editDisable();
+            reloadTbl();
+            Edit=false;
+            btnGuardar.setEnabled(Edit);
+            btnElim.setEnabled(Edit);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_formKeyTyped
     // </editor-fold>    
     /**
      * @param args the command line arguments
@@ -640,23 +660,18 @@ public class VentAlum extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentAlum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentAlum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentAlum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentAlum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
+        
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentAlum().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentAlum().setVisible(true);
         });
     }
     // <editor-fold defaultstate="collapsed" desc="Variables">
@@ -664,7 +679,6 @@ public class VentAlum extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnConf;
     private javax.swing.JButton btnElim;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnMod;

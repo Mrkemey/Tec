@@ -122,6 +122,8 @@ public class Alumno {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(NullPointerException ex){
+            
         }
     }
     public boolean sea(String nc) {
