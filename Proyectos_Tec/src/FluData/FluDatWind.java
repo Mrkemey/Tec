@@ -16,8 +16,6 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
     public FluDatWind() 
     {
         initComponents();
-        this.setTitle("Sin título: Nuevo Doc");
-        
     }
 
 
@@ -414,6 +412,7 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sin título: Nuevo Doc");
         setLocation(new java.awt.Point(0, 0));
 
         txtNota.setColumns(20);
@@ -629,6 +628,7 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
         {
             txtNota.setText(null);
             setTitle("Sin título:  Nuevo Doc");
+            nombredearchivo="";
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -658,7 +658,7 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
         } 
         catch (IOException e) 
         {
-            showMessageDialog(this, "404 FileNotFound");//now, show this message if the archieve isn't found. 404 makes reference at the same error
+            showMessageDialog(this, "Archivo no encontrado");//now, show this message if the archieve isn't found. 404 makes reference at the same error
         }
     }//GEN-LAST:event_btnAbrirActionPerformed
 
@@ -760,7 +760,7 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
             {
                 if(iBuscar != 0)
                 iBuscar = iBuscar-1;
-                if(mayusOrmin)
+                if(chBCoinci.isSelected()||chRCoincidir.isSelected())
                 {
                     cBusca = txtUpper.indexOf(pBuscada, iBuscar);
                 }

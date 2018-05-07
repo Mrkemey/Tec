@@ -112,18 +112,14 @@ public class Alumno {
             }
         } catch (EOFException ex) {
             //Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-            showMessageDialog(null, "E" + "L ALUMNO NO FUE ENCONTRADO".toLowerCase() + nc);
+            showMessageDialog(null, "E" + "L ALUMNO NO FUE ENCONTRADO ".toLowerCase() + nc);
             setNc("");
             setNombres("");
             setApaterno("");
             setAmaterno("");
             setEmail("");
-        } catch (FileNotFoundException ex) {
+        } catch (IOException | NullPointerException ex) {
             Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Alumno.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NullPointerException ex){
-            
         }
     }
     public boolean sea(String nc) {

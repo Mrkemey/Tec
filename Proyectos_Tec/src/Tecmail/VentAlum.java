@@ -206,6 +206,7 @@ public class VentAlum extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -220,18 +221,17 @@ public class VentAlum extends javax.swing.JFrame {
                                     .addComponent(jLabel3))
                                 .addGap(47, 47, 47)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAM, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtAP)
-                                        .addComponent(txtNc)
-                                        .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtNc, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(txtAM, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                        .addComponent(txtAP, javax.swing.GroupLayout.Alignment.LEADING))))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(17, Short.MAX_VALUE))
-            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,11 +470,13 @@ public class VentAlum extends javax.swing.JFrame {
             clearField();
             changeField();
             cBtn();
+            btnBuscar.setEnabled(false);
             txtNc.requestFocus();
             btnMod.setEnabled(false);           
             btnElim.setEnabled(false);
             tblAlumno.setEnabled(false);
             btnMod.setEnabled(false);
+            btnCancelar.setEnabled(true);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -506,6 +508,8 @@ public class VentAlum extends javax.swing.JFrame {
                     Edit=false;
                     btnGuardar.setEnabled(Edit);
                     btnCancelar.setEnabled(Edit);
+                    btnBuscar.setEnabled(true);
+                    btnNuevo.setEnabled(true);
                 } else {
                     showMessageDialog(this, "Ese Numero de control, ya a sido registrado");
                 }                           
@@ -585,6 +589,7 @@ public class VentAlum extends javax.swing.JFrame {
         int a = tblAlumno.getSelectedRow();
         if (tblAlumno.getSelectedRow() >= 0) {
             Edit=true;
+            btnBuscar.setEnabled(false);
             btnGuardar.setEnabled(true);
             btnCancelar.setEnabled(Edit);
             tblAlumno.setEnabled(false);
@@ -598,13 +603,15 @@ public class VentAlum extends javax.swing.JFrame {
             txtAP.setText(tblAlumno.getValueAt(a, 2).toString());
             txtAM.setText(tblAlumno.getValueAt(a, 3).toString());
             txtEmail.setText("");
-
+            btnNuevo.setEnabled(false);
         }
     }//GEN-LAST:event_btnModActionPerformed
     private void btnElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnElimActionPerformed
         // TODO add your handling code here:
         int a = tblAlumno.getSelectedRow();
         changeButton_tbl();
+        btnBuscar.setEnabled(true);
+        btnNuevo.setEnabled(false);
         modelo.removeRow(a);
         reloadData();
         for (int i = 0; i < tblAlumno.getRowCount(); i++) {
@@ -628,8 +635,10 @@ public class VentAlum extends javax.swing.JFrame {
             clearField();
             changeField();
             cBtn();
+            btnBuscar.setEnabled(true);
         }else{
             tblAlumno.setEnabled(true);
+            btnBuscar.setEnabled(true);
             clearField();
             editDisable();
             reloadTbl();
