@@ -70,7 +70,6 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         btnSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        btnLimpiar = new javax.swing.JMenuItem();
         btnCopiar = new javax.swing.JMenuItem();
         btnCortar = new javax.swing.JMenuItem();
         btnPegar = new javax.swing.JMenuItem();
@@ -473,15 +472,6 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
         jMenu2.setText("Editar");
         jMenu2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        btnLimpiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-        jMenu2.add(btnLimpiar);
-
         btnCopiar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         btnCopiar.setText("Copiar");
         btnCopiar.addActionListener(new java.awt.event.ActionListener() {
@@ -570,7 +560,7 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
         jMenu9.setText("Acerca de");
         jMenu9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
-        jMenuItem3.setText("Proyecto");
+        jMenuItem3.setText("Info");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
@@ -607,10 +597,6 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
     private void btnPegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPegarActionPerformed
        txtNota.paste();
     }//GEN-LAST:event_btnPegarActionPerformed
-
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtNota.setText(null);
-    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void bntMinusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntMinusActionPerformed
         letras=txtNota.getText();
@@ -1088,7 +1074,6 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
     private javax.swing.JMenuItem btnFuente;
     private javax.swing.JMenuItem btnGuardar;
     private javax.swing.JMenuItem btnGuardarC;
-    private javax.swing.JMenuItem btnLimpiar;
     private javax.swing.JMenuItem btnMayus;
     private javax.swing.JMenuItem btnNuevo;
     private javax.swing.JMenuItem btnPegar;
