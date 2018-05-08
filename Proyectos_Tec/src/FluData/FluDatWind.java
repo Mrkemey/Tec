@@ -707,7 +707,7 @@ public Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
                 } 
                 catch (IOException e) 
                 {
-                    showMessageDialog(this, "Archivo no encontrado");
+                    showMessageDialog(this, "404FileNotFound");
                 }
             }
         }
