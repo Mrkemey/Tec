@@ -1,5 +1,11 @@
 package FluObj;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showInputDialog;
@@ -10,85 +16,127 @@ public class VentanaLibro extends javax.swing.JFrame {
 
     public VentanaLibro() {
         initComponents();
-        modelo=(DefaultTableModel) tblCarrito.getModel();
+        modelo=(DefaultTableModel) tblLib.getModel();
+    }
+    private void reloadTbl() {
+        if (!btnSave.isEnabled()) {
+            modelo.setRowCount(0);
+            if (!btnDel.isEnabled()) {
+                btnMod.setEnabled(true);
+            } else {
+                //changeButton_tbl();
+            }
+            tblLib.setEnabled(true);
+            tbl();
+        } else {
+            if (!btnDel.isEnabled()) {
+                showMessageDialog(rootPane, "Termine de guardar o cancele la accion");
+            }
+        }      
+    }
+     private void tbl(){
+        try {
+            Object O[] = new Object[5];
+            java.io.FileInputStream fb = new java.io.FileInputStream(Libro.fDir);
+            
+            while (fb.available() > 0&&!btnDel.isEnabled()) {
+               java.io.ObjectInputStream fol = new java.io.ObjectInputStream(fb);
+                Libro p = (Libro) fol.readObject();
+                O[0]= (p.getIsbn());
+                O[1] = (p.getTitulo());
+                O[2]= (p.getAutor());
+                O[3] = (p.getEditorial());
+                O[4] = (p.getPrecio());
+                modelo.addRow(O);System.out.println("as");
+            }
+            while (fb.available() > 1&&btnDel.isEnabled()) {
+               java.io.ObjectInputStream fol = new java.io.ObjectInputStream(fb);
+                Libro p = (Libro) fol.readObject();
+                O[0]= (p.getIsbn());
+                O[1] = (p.getTitulo());
+                O[2]= (p.getAutor());
+                O[3] = (p.getEditorial());
+                O[4] = (p.getPrecio());
+                modelo.addRow(O);
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(VentanaLibro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
+    private void cField()
+    {
+       txtIsbn.setText("");
+       txtAut.setText("");
+       txtEdit.setText("");
+       txtPr.setText("");
+       txtTit.setText("");
+    }
+
+    private void bFields(boolean a)
+    {
+       txtIsbn.setEditable(a);
+       txtAut.setEditable(a);
+       txtEdit.setEditable(a);
+       txtPr.setEditable(a);
+       txtTit.setEditable(a);
     }
     
-    private void limpiarCampos()
+    private void defaultButt(boolean New,boolean Sav,boolean Mod)
     {
-       txtISBN.setText("");
-       txtAutor.setText("");
-       txtEditorial.setText("");
-       txtPrecio.setText("");
-       txtTitulo.setText("");
-    }
-    
-    private void desBloquearCampos()
-    {
-       txtISBN.setEditable(true);
-       txtAutor.setEditable(true);
-       txtEditorial.setEditable(true);
-       txtPrecio.setEditable(true);
-       txtTitulo.setEditable(true);
-    }
-    
-    private void bloquearCampos()
-    {
-       txtISBN.setEditable(false);
-       txtAutor.setEditable(false);
-       txtEditorial.setEditable(false);
-       txtPrecio.setEditable(false);
-       txtTitulo.setEditable(false);
-    }
-    
-    private void bloquearBotones()
-    {
-        btnAgregar.setEnabled(false);
-        btnGuardar.setEnabled(true);
-        btnBuscar.setEnabled(false);
-        btnCancelar.setEnabled(true);
+        btnnew.setEnabled(New);
+        btnSave.setEnabled(Sav);
+        btnSe.setEnabled(New);
+        btnCan.setEnabled(Sav);
+        if(tblLib.getRowCount()>0){
+            btnMod.setEnabled(true);
+        }else{
+            btnMod.setEnabled(Mod);
+        }
+        btnDel.setEnabled(Mod);
+        btnView.setEnabled(New);
     }
     
     private void desBloquearBotones()
     {
-        btnAgregar.setEnabled(true);
-        btnGuardar.setEnabled(false);
-        btnBuscar.setEnabled(true);
-        btnCancelar.setEnabled(false);
+        btnnew.setEnabled(true);
+        btnSave.setEnabled(false);
+        btnSe.setEnabled(true);
+        btnCan.setEnabled(false);
     }
     
      public void espaciosBlanco() throws LibroException
      {
-        if(txtISBN.getText().equals(""))
+        if(txtIsbn.getText().equals(""))
         {
-            txtISBN.requestFocus();
+            txtIsbn.requestFocus();
             throw new LibroException("ESPACIO EN BLANCO");
         }
         else
         {
-            if(txtTitulo.getText().equals(""))
+            if(txtTit.getText().equals(""))
             {
-                txtTitulo.requestFocus();
+                txtTit.requestFocus();
                 throw new LibroException("ESPACIO EN BLANCO");
             }
             else
             {
-                if(txtAutor.getText().equals(""))
+                if(txtAut.getText().equals(""))
                 {
-                    txtAutor.requestFocus();
+                    txtAut.requestFocus();
                     throw new LibroException("ESPACIO EN BLANCO");
                 }
                 else
                 {
-                    if(txtEditorial.getText().equals(""))
+                    if(txtEdit.getText().equals(""))
                     {
-                        txtEditorial.requestFocus();
+                        txtEdit.requestFocus();
                         throw new LibroException("ESPACIO EN BLANCO");
                     }
                     else
                     {
-                        if(txtPrecio.getText().equals(""))
+                        if(txtPr.getText().equals(""))
                         {
-                            txtPrecio.requestFocus();
+                            txtPr.requestFocus();
                             throw new LibroException("ESPACIO EN BLANCO");
                         }
                     }
@@ -108,95 +156,111 @@ public class VentanaLibro extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        btnAgregar = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnMostrar = new javax.swing.JButton();
-        btnModifi = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        btnnew = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        btnCan = new javax.swing.JButton();
+        btnSe = new javax.swing.JButton();
+        btnView = new javax.swing.JButton();
+        btnMod = new javax.swing.JButton();
+        btnDel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtISBN = new javax.swing.JTextField();
-        txtTitulo = new javax.swing.JTextField();
-        txtAutor = new javax.swing.JTextField();
-        txtEditorial = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
+        txtIsbn = new javax.swing.JTextField();
+        txtTit = new javax.swing.JTextField();
+        txtAut = new javax.swing.JTextField();
+        txtEdit = new javax.swing.JTextField();
+        txtPr = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCarrito = new javax.swing.JTable();
+        tblLib = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
 
-        btnAgregar.setText("AGREGAR");
-        btnAgregar.setFocusable(false);
-        btnAgregar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAgregar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+        btnnew.setText("AGREGAR");
+        btnnew.setFocusable(false);
+        btnnew.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnnew.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnnew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
+                btnnewActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnAgregar);
+        jToolBar1.add(btnnew);
 
-        btnGuardar.setText("GUARDAR");
-        btnGuardar.setEnabled(false);
-        btnGuardar.setFocusable(false);
-        btnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("GUARDAR");
+        btnSave.setEnabled(false);
+        btnSave.setFocusable(false);
+        btnSave.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnGuardar);
+        jToolBar1.add(btnSave);
 
-        btnCancelar.setText("CANCELAR");
-        btnCancelar.setEnabled(false);
-        btnCancelar.setFocusable(false);
-        btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnCancelar);
-
-        btnBuscar.setText("BUSCAR");
-        btnBuscar.setFocusable(false);
-        btnBuscar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnBuscar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+        btnCan.setText("CANCELAR");
+        btnCan.setEnabled(false);
+        btnCan.setFocusable(false);
+        btnCan.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
+                btnCanActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnBuscar);
+        jToolBar1.add(btnCan);
 
-        btnMostrar.setText("MOSTRAR");
-        btnMostrar.setFocusable(false);
-        btnMostrar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnMostrar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnMostrar);
-
-        btnModifi.setText("MODIFICAR");
-        btnModifi.setEnabled(false);
-        btnModifi.setFocusable(false);
-        btnModifi.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnModifi.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnModifi.addActionListener(new java.awt.event.ActionListener() {
+        btnSe.setText("BUSCAR");
+        btnSe.setFocusable(false);
+        btnSe.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSe.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModifiActionPerformed(evt);
+                btnSeActionPerformed(evt);
             }
         });
-        jToolBar1.add(btnModifi);
+        jToolBar1.add(btnSe);
 
-        btnEliminar.setText("ELIMINAR");
-        btnEliminar.setEnabled(false);
-        btnEliminar.setFocusable(false);
-        btnEliminar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnEliminar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(btnEliminar);
+        btnView.setText("MOSTRAR");
+        btnView.setFocusable(false);
+        btnView.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnView.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnView);
+
+        btnMod.setText("MODIFICAR");
+        btnMod.setEnabled(false);
+        btnMod.setFocusable(false);
+        btnMod.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMod.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnMod);
+
+        btnDel.setText("ELIMINAR");
+        btnDel.setEnabled(false);
+        btnDel.setFocusable(false);
+        btnDel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnDel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnDel);
 
         jLabel1.setText("ISBN");
 
@@ -208,37 +272,37 @@ public class VentanaLibro extends javax.swing.JFrame {
 
         jLabel5.setText("PRECIO");
 
-        txtISBN.setEditable(false);
-        txtISBN.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtIsbn.setEditable(false);
+        txtIsbn.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtISBNKeyTyped(evt);
+                txtIsbnKeyTyped(evt);
             }
         });
 
-        txtTitulo.setEditable(false);
+        txtTit.setEditable(false);
 
-        txtAutor.setEditable(false);
-        txtAutor.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtAut.setEditable(false);
+        txtAut.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtAutorKeyTyped(evt);
+                txtAutKeyTyped(evt);
             }
         });
 
-        txtEditorial.setEditable(false);
-        txtEditorial.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtEdit.setEditable(false);
+        txtEdit.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtEditorialKeyTyped(evt);
+                txtEditKeyTyped(evt);
             }
         });
 
-        txtPrecio.setEditable(false);
-        txtPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPr.setEditable(false);
+        txtPr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtPrecioKeyTyped(evt);
+                txtPrKeyTyped(evt);
             }
         });
 
-        tblCarrito.setModel(new javax.swing.table.DefaultTableModel(
+        tblLib.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -246,7 +310,14 @@ public class VentanaLibro extends javax.swing.JFrame {
                 "ISBN", "TITULO", "AUTOR", "EDITORIAL", "PRECIO"
             }
         ));
-        jScrollPane1.setViewportView(tblCarrito);
+        jScrollPane1.setViewportView(tblLib);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -254,151 +325,241 @@ public class VentanaLibro extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(17, 17, 17)))
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTitulo)
-                    .addComponent(txtAutor, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(txtEditorial))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(17, 17, 17)))
+                        .addGap(52, 52, 52)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTit)
+                            .addComponent(txtAut, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                            .addComponent(txtPr, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                            .addComponent(txtEdit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtISBN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtTit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtEditorial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 57, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        desBloquearCampos();
-        bloquearBotones();
-        txtISBN.requestFocus();
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        try 
-        {
-            espaciosBlanco();
-        } 
-        catch (LibroException e) 
-        {
-            showMessageDialog(rootPane,e.getMessage());
-            return;
-        }
-        Libro l=new Libro(txtISBN.getText(), txtTitulo.getText(),txtAutor.getText(),txtEditorial.getText(), Float.parseFloat(txtPrecio.getText()));
-        l.guardar();
-        bloquearCampos();
-        desBloquearBotones();
-        limpiarCampos();
-        //mandar a la tabla
+    private void btnnewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnewActionPerformed
+        defaultButt(false,true,false);
+        bFields(true);
+        btnView.setEnabled(true);
+        cField();
+        txtIsbn.requestFocus();
+    }//GEN-LAST:event_btnnewActionPerformed
+    
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         
-    }//GEN-LAST:event_btnGuardarActionPerformed
+        if (!btnDel.isEnabled()) {
+            try {
+                espaciosBlanco();
+            } catch (LibroException e) {
+                showMessageDialog(rootPane, e.getMessage());
+                return;
+            }
+            System.out.println("a");
+            Libro a = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
+            a.guardar();
+            cField();
+            defaultButt(true,false,false);
+            bFields(false);
+        } else {
+            int a = tblLib.getSelectedRow();
+            Object O[] = new Object[5];
+            O[0] = txtIsbn.getText();
+            O[1] = txtTit.getText();
+            O[2] = txtAut.getText();
+            O[3] = txtEdit.getText();
+            O[4] = txtPr.getText();
+            modelo.removeRow(a);
+            modelo.insertRow(a, O);
+            Libro.clean();
+            for (int i = 0; i < tblLib.getRowCount(); i++) {
+                Libro b = new Libro(tblLib.getValueAt(i, 0).toString(),
+                                tblLib.getValueAt(i, 1).toString(),
+                            tblLib.getValueAt(i, 2).toString(),
+                        tblLib.getValueAt(i, 3).toString(), 
+                    Float.parseFloat(tblLib.getValueAt(i, 4).toString())
+                );
+                b.guardar();
+            }
+            cField();
+            reloadTbl();
+            defaultButt(true,false,false);
+            bFields(false);
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
     private void fillFields(Libro a) {
-        txtISBN.setText(a.getIsbn());
-        txtTitulo.setText(a.getTitulo());
-        txtAutor.setText(a.getAutor());;
-        txtEditorial.setText(a.getEditorial());
-        txtPrecio.setText("" + a.getPrecio());
+        txtIsbn.setText(a.getIsbn());
+        txtTit.setText(a.getTitulo());
+        txtAut.setText(a.getAutor());;
+        txtEdit.setText(a.getEditorial());
+        txtPr.setText("" + a.getPrecio());
     }
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    private void btnSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeActionPerformed
         String isbn=showInputDialog(this,"ISBN a buscar","",3);
         if (isbn == null) {
             return;
         }
-        Libro l = new Libro();
-        l.buscar(isbn);
-        for (int i = 0; i < tblCarrito.getRowCount(); i++) {
-            if (isbn.equals(tblCarrito.getValueAt(i, 0).toString())) {
-                tblCarrito.setRowSelectionInterval(i, i);
-                btnModifi.setEnabled(true);
-                btnEliminar.setEnabled(true);
+        Libro x = new Libro();
+        x.buscar(isbn);
+        for (int i = 0; i < tblLib.getRowCount(); i++) {
+            if (isbn.equals(tblLib.getValueAt(i, 0).toString())) {
+                tblLib.setRowSelectionInterval(i, i);
                 break;
             }
         }
-        fillFields(l);
-        if (l.getPrecio() == 0) {
-            txtPrecio.setText("");
+        fillFields(x);        
+        if (x.getPrecio() == 0) {
+            txtPr.setText("");
         }
-            
-        
-    }//GEN-LAST:event_btnBuscarActionPerformed
+        bFields(true);            
+    }//GEN-LAST:event_btnSeActionPerformed
 
-    private void txtISBNKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtISBNKeyTyped
+    private void txtIsbnKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIsbnKeyTyped
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9')) && (c != '\b')) 
         {
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtISBNKeyTyped
+    }//GEN-LAST:event_txtIsbnKeyTyped
 
-    private void txtPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioKeyTyped
+    private void txtPrKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrKeyTyped
         char c = evt.getKeyChar();
         if (((c < '0') || (c > '9')) && (c != '\b')) {
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtPrecioKeyTyped
+    }//GEN-LAST:event_txtPrKeyTyped
 
-    private void txtAutorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutorKeyTyped
+    private void txtAutKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAutKeyTyped
         char validar = evt.getKeyChar();
         if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtAutorKeyTyped
+    }//GEN-LAST:event_txtAutKeyTyped
 
-    private void txtEditorialKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEditorialKeyTyped
+    private void txtEditKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEditKeyTyped
         char validar = evt.getKeyChar();
         if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
         }
-    }//GEN-LAST:event_txtEditorialKeyTyped
+    }//GEN-LAST:event_txtEditKeyTyped
 
-    private void btnModifiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModifiActionPerformed
+    private void btnModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnModifiActionPerformed
+        int a = tblLib.getSelectedRow();
+        if (tblLib.getSelectedRow() >= 0) {
+            txtIsbn.setText(tblLib.getValueAt(a, 0).toString());
+            txtTit.setText(tblLib.getValueAt(a, 1).toString());
+            txtAut.setText(tblLib.getValueAt(a, 2).toString());
+            txtEdit.setText(tblLib.getValueAt(a, 3).toString());
+            txtPr.setText(tblLib.getValueAt(a, 4).toString());
+            defaultButt(false,true,true);
+            bFields(true);
+        }
+    }//GEN-LAST:event_btnModActionPerformed
+
+    private void btnCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanActionPerformed
+        // TODO add your handling code here:
+        defaultButt(true,false,false);
+        bFields(false);
+        cField();
+    }//GEN-LAST:event_btnCanActionPerformed
+
+    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
+        // TODO add your handling code here:        
+            modelo.setRowCount(0);
+            reloadTbl();
+            defaultButt(true,false,false);
+            tblLib.setEnabled(true);
+            bFields(false);           
+        
+    }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        // TODO add your handling code here:
+        boolean Tipo=false;
+        int a = tblLib.getSelectedRow();
+            modelo.removeRow(a);
+            Libro.clean();           
+            for (int i = 0; i < tblLib.getRowCount(); i++) {
+                Libro b = new Libro(tblLib.getValueAt(i, 0).toString(),
+                                tblLib.getValueAt(i, 1).toString(),
+                            tblLib.getValueAt(i, 2).toString(),
+                        tblLib.getValueAt(i, 3).toString(), 
+                    Float.parseFloat(tblLib.getValueAt(i, 4).toString())
+                );
+                b.guardar(Tipo);
+                Tipo=true;
+            }
+            
+        reloadTbl();
+        a=tblLib.getRowCount();
+        if(a==0){
+            
+        }
+        defaultButt(true,false,false);
+        bFields(false);
+        
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        File archivo=new File(Libro.fDir);
+            archivo.delete(); 
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -416,15 +577,11 @@ public class VentanaLibro extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(VentanaLibro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -435,15 +592,17 @@ public class VentanaLibro extends javax.swing.JFrame {
         });
     }
     
+    private final boolean ModEdit=false;
     private DefaultTableModel modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnModifi;
-    private javax.swing.JButton btnMostrar;
+    private javax.swing.JButton btnCan;
+    private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnMod;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnSe;
+    private javax.swing.JButton btnView;
+    private javax.swing.JButton btnnew;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -451,11 +610,11 @@ public class VentanaLibro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar jToolBar1;
-    private javax.swing.JTable tblCarrito;
-    private javax.swing.JTextField txtAutor;
-    private javax.swing.JTextField txtEditorial;
-    private javax.swing.JTextField txtISBN;
-    private javax.swing.JTextField txtPrecio;
-    private javax.swing.JTextField txtTitulo;
+    private javax.swing.JTable tblLib;
+    private javax.swing.JTextField txtAut;
+    private javax.swing.JTextField txtEdit;
+    private javax.swing.JTextField txtIsbn;
+    private javax.swing.JTextField txtPr;
+    private javax.swing.JTextField txtTit;
     // End of variables declaration//GEN-END:variables
 }

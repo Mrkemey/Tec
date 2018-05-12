@@ -478,7 +478,6 @@ public class VentAlum extends javax.swing.JFrame {
                     O[4] = fdr.readUTF();
                     modelo.addRow(O);
                 }
-
             } // <editor-fold defaultstate="collapsed" desc="Catches">
             catch (EOFException ex) {
                 //editar, eliminar.
@@ -491,8 +490,7 @@ public class VentAlum extends javax.swing.JFrame {
         } else {
             if (!Edit) {
                 showMessageDialog(rootPane, "Termine de guardar o cancele la accion");
-            }
-            
+            }            
         }
         
     }
