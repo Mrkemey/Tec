@@ -1,100 +1,115 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package FluObj;
 
-import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author jmanu
- */
-public class Libro {
-    String ISBN,Titulo,Autor,Edi;
-    float Precio;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 
-    public String getISBN() {
-        return ISBN;
+public class Libro implements Serializable{
+    String isbn,titulo, autor, editorial;
+    float precio;
+
+    public Libro() 
+    {
     }
 
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
+    public Libro(String isbn, String titulo, String autor, String editorial, float precio) 
+    {
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.editorial = editorial;
+        this.precio = precio;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
-    public void setTitulo(String Titulo) {
-        this.Titulo = Titulo;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public String getAutor() {
-        return Autor;
+        return autor;
     }
 
-    public void setAutor(String Autor) {
-        this.Autor = Autor;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
-    public String getEdi() {
-        return Edi;
+    public String getEditorial() {
+        return editorial;
     }
 
-    public void setEdi(String Edi) {
-        this.Edi = Edi;
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
     }
 
     public float getPrecio() {
-        return Precio;
+        return precio;
     }
 
-    public void setPrecio(float Precio) {
-        this.Precio = Precio;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
-
-    public Libro() {
-    }
-
-    public Libro(String ISBN, String Titulo, String Autor, String Edi, float Precio) {
-        this.ISBN = ISBN;
-        this.Titulo = Titulo;
-        this.Autor = Autor;
-        this.Edi = Edi;
-        this.Precio = Precio;
-    }
-    public void guardar(){
-        FileOutputStream fb=null;
+    
+    public void guardar()
+    {
         try {
-            fb = new FileOutputStream("Libros.Obj",true);
-            ObjectOutputStream fow =new ObjectOutputStream(fb);
+            java.io.FileOutputStream fb = new java.io.FileOutputStream("LIBROS.OBJ", true);
+            java.io.ObjectOutputStream fow = new java.io.ObjectOutputStream(fb);
             fow.writeObject(this);
-            fow.flush();
+            fow.close();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(VentFluObj.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("No se encontro el archivo para guardar");
         } catch (IOException ex) {
-            Logger.getLogger(VentFluObj.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Error al guardar");
         }
-        
-    }
-    public Libro Buscar(String isbn){
-        FileInputStream fb=null;
+    }//guardar
+    
+    public void buscar(String isbn)
+    {   
         try {
-            fb = new FileInputStream("Libros.Obj");
-            ObjectInputStream fol =new ObjectInputStream(fb);
+            java.io.FileInputStream fb = new java.io.FileInputStream("LIBROS.OBJ");
+            while (fb.available() > 0) { //Da los atributos al objeto principal de cada uno del archvo
+                java.io.ObjectInputStream fol = new java.io.ObjectInputStream(fb);
+                Libro p = (Libro) fol.readObject();
+                this.isbn = (p.getIsbn());
+                this.titulo = (p.getTitulo());  
+                this.autor = (p.getAutor());
+                this.editorial = (p.getEditorial());
+                this.precio = (p.getPrecio());
+                if (isbn.equals(this.isbn)) {
+                    return; //Si lo encuentra, acaba la operacion
+                }
+            }
+            if (fb.available() == 0) { //Si no encuentra el libro al final del archvo
+                showMessageDialog(null, "Libro no encontrado " + isbn);
+                this.setIsbn("");
+                this.setTitulo("");
+                this.setAutor("");
+                this.setEditorial("");
+                this.setPrecio(0);
+            }
             
-            return (Libro) fol.readObject();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(VentFluObj.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(VentFluObj.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Libro.class.getName()).log(Level.SEVERE, null, ex);
+
+        } catch (IOException | ClassNotFoundException ex) {
+
         }
-        return null;
-    }
+    }//buscar
+    
+    
 }
