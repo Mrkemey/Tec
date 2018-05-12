@@ -1,16 +1,16 @@
 package FluObj;
 
-import java.io.EOFException;
+//<editor-fold defaultstate="collapsed" desc="Librerias">
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javax.swing.JOptionPane.showInputDialog;
 import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.table.DefaultTableModel;
+//</editor-fold>
 
 public class VentanaLibro extends javax.swing.JFrame {
 
@@ -18,7 +18,9 @@ public class VentanaLibro extends javax.swing.JFrame {
         initComponents();
         modelo=(DefaultTableModel) tblLib.getModel();
     }
-     private void tbl() throws FileNotFoundException, IOException {
+    
+//<editor-fold defaultstate="collapsed" desc="Funciones de Datos & Objetos">
+    private void tbl() throws FileNotFoundException, IOException {
         modelo.setRowCount(0);
         try (FileInputStream fb = new FileInputStream(Libro.fDir)) {
             Libro O;
@@ -41,7 +43,7 @@ public class VentanaLibro extends javax.swing.JFrame {
             System.out.println(ex.getMessage() + "2");
         }
     }
-
+    
     private void cField() {
         txtIsbn.setText("");
         txtAut.setText("");
@@ -49,7 +51,7 @@ public class VentanaLibro extends javax.swing.JFrame {
         txtPr.setText("");
         txtTit.setText("");
     }
-
+    
     private void bFields(boolean a) {
         txtIsbn.setEditable(a);
         txtAut.setEditable(a);
@@ -57,7 +59,7 @@ public class VentanaLibro extends javax.swing.JFrame {
         txtPr.setEditable(a);
         txtTit.setEditable(a);
     }
-
+    
     private void defaultButt(boolean New, boolean Sav, boolean Mod) {
         btnnew.setEnabled(New);
         btnSave.setEnabled(Sav);
@@ -71,7 +73,7 @@ public class VentanaLibro extends javax.swing.JFrame {
         btnDel.setEnabled(Mod);
         btnView.setEnabled(New);
     }
-
+    
     public void espaciosBlanco() throws LibroException {
         if (txtIsbn.getText().equals("")) {
             txtIsbn.requestFocus();
@@ -98,14 +100,14 @@ public class VentanaLibro extends javax.swing.JFrame {
             }
         }
     }
-
+    
     private void fillFields(Libro a) {
-            txtIsbn.setText(a.getIsbn());
-            txtTit.setText(a.getTitulo());
-            txtAut.setText(a.getAutor());
-            txtEdit.setText(a.getEditorial());
-            txtPr.setText("" + a.getPrecio());
-        }
+        txtIsbn.setText(a.getIsbn());
+        txtTit.setText(a.getTitulo());
+        txtAut.setText(a.getAutor());
+        txtEdit.setText(a.getEditorial());
+        txtPr.setText("" + a.getPrecio());
+    }
     public void clean() {
         try {
             Libro a = new Libro();
@@ -121,8 +123,9 @@ public class VentanaLibro extends javax.swing.JFrame {
     }
     private void elim(){
         File archivo=new File(Libro.fDir);
-            archivo.delete();
+        archivo.delete();
     }
+//</editor-fold>
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
