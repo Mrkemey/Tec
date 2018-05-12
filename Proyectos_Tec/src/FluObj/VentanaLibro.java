@@ -18,13 +18,9 @@ public class VentanaLibro extends javax.swing.JFrame {
         initComponents();
         modelo=(DefaultTableModel) tblLib.getModel();
     }
-         
-    
-    
      private void tbl() throws FileNotFoundException, IOException {
         modelo.setRowCount(0);
-        FileInputStream fb = new FileInputStream(Libro.fDir);
-        try {
+        try (FileInputStream fb = new FileInputStream(Libro.fDir)) {
             Libro O;
             while (fb.available() > 0) {
                 java.io.ObjectInputStream ob = new java.io.ObjectInputStream(fb);
@@ -43,8 +39,6 @@ public class VentanaLibro extends javax.swing.JFrame {
             System.out.println(ex.getMessage() + "1");
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage() + "2");
-        } finally {
-            fb.close();
         }
     }
 
@@ -108,7 +102,7 @@ public class VentanaLibro extends javax.swing.JFrame {
     private void fillFields(Libro a) {
             txtIsbn.setText(a.getIsbn());
             txtTit.setText(a.getTitulo());
-            txtAut.setText(a.getAutor());;
+            txtAut.setText(a.getAutor());
             txtEdit.setText(a.getEditorial());
             txtPr.setText("" + a.getPrecio());
         }
@@ -116,9 +110,9 @@ public class VentanaLibro extends javax.swing.JFrame {
         try {
             Libro a = new Libro();
             java.io.FileOutputStream fb = new java.io.FileOutputStream(Libro.fDir, false);
-            java.io.ObjectOutputStream fow = new java.io.ObjectOutputStream(fb);
-            fow.writeObject(a);
-            fow.close();
+            try (java.io.ObjectOutputStream fow = new java.io.ObjectOutputStream(fb)) {
+                fow.writeObject(a);
+            }
         } catch (FileNotFoundException ex) {
             System.out.println("No se encontro el archivo para guardar");
         } catch (IOException ex) {
@@ -552,7 +546,6 @@ public class VentanaLibro extends javax.swing.JFrame {
         });
     }
     
-    private final boolean ModEdit=false;
     private final DefaultTableModel modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCan;
