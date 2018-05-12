@@ -1,7 +1,6 @@
 package FluObj;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -19,10 +18,10 @@ public class Libro implements Serializable{
 
     public Libro(String isbn, String titulo, String autor, String editorial, float precio) 
     {
-        this.isbn = isbn+" ";
-        this.titulo = titulo+" ";
-        this.autor = autor+" ";
-        this.editorial = editorial+" ";
+        this.isbn = isbn;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.editorial = editorial;
         this.precio = precio;
     }
 
