@@ -137,5 +137,27 @@ public class Libro implements Serializable{
 
         }
     }   
+    
+    public boolean valISBN(String isbn)
+    {   
+        try {
+            java.io.FileInputStream fb = new java.io.FileInputStream(fDir);
+            java.io.ObjectInputStream fol = new java.io.ObjectInputStream(fb);
+            while (fb.available() > 0) { 
+                
+                Libro p = (Libro) fol.readObject();
+                this.isbn = (p.getIsbn());
+                if (isbn.equals(this.isbn)) {
+                    return false; 
+                }
+            }            
+            
+        } catch (FileNotFoundException ex) {
+
+        } catch (IOException | ClassNotFoundException ex) {
+
+        }
+        return true;
+    } 
 
 }
