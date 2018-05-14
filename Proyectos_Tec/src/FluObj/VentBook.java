@@ -802,33 +802,40 @@ public class VentBook extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        boolean l=true;
         txtIsbn.setText(((int)(Math.random()*100000000))+"");
-        txtTit.setText(random());
-        txtAut.setText(random());
-        txtEdit.setText(random());
+        txtTit.setText(random(l));
+        txtAut.setText(random(l));
+        txtEdit.setText(random(l));
         txtPr.setText(((int)(Math.random()*1000))+"");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        txtIsbn.setText(((int)(Math.random()*1000))+random());
-        txtTit.setText(random());
-        txtAut.setText(random());
-        txtEdit.setText(random());
+        boolean l=true;
+        txtIsbn.setText(((int)(Math.random()*1000))+random(false));
+        txtTit.setText(random(l));
+        txtAut.setText(random(l));
+        txtEdit.setText(random(l));
         txtPr.setText(((int)(Math.random()*1000))+"");
     }//GEN-LAST:event_jButton4ActionPerformed
-    public String random(){
+    public String random(boolean a){
 //        byte[] array = new byte[5]; // length is bounded by 7
 //        new Random().nextBytes(array);
 //        
 //        String generatedString = new String(array);
 //        return generatedString;
-        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String Cad;
+        if (a) {
+            Cad = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        }else{
+            Cad = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        } 
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
         while (salt.length() < 5) { // length of the random string.
-            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
-            salt.append(SALTCHARS.charAt(index));
+            int index = (int) (rnd.nextFloat() * Cad.length());
+            salt.append(Cad.charAt(index));
         }
         String saltStr = salt.toString();
         return saltStr.toLowerCase();
