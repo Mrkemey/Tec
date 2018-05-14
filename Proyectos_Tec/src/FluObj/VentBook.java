@@ -28,7 +28,7 @@ public class VentBook extends javax.swing.JFrame {
     }
     
 //<editor-fold defaultstate="collapsed" desc="Funciones de Datos & Objetos">
-    private void loadTbl() throws FileNotFoundException, IOException {
+    private void tbl() throws FileNotFoundException, IOException {
         modelo.setRowCount(0);
         try (FileInputStream fb = new FileInputStream(Libro.fDir)) {
             Libro O;
@@ -83,26 +83,26 @@ public class VentBook extends javax.swing.JFrame {
         
     }
     
-    public void emptyField() throws LibroException {
+    public void emptyF() throws LibroException {
         if (txtIsbn.getText().equals("")) {
             txtIsbn.requestFocus();
-            throw new LibroException("ESPACIO EN BLANCO");
+            throw new LibroException("Escriba el ISBN del Libro");
         } else {
             if (txtTit.getText().equals("")) {
                 txtTit.requestFocus();
-                throw new LibroException("ESPACIO EN BLANCO");
+                throw new LibroException("Escriba el Titulo del Libro");
             } else {
                 if (txtAut.getText().equals("")) {
                     txtAut.requestFocus();
-                    throw new LibroException("ESPACIO EN BLANCO");
+                    throw new LibroException("Escriba el Nombre del autor");
                 } else {
                     if (txtEdit.getText().equals("")) {
                         txtEdit.requestFocus();
-                        throw new LibroException("ESPACIO EN BLANCO");
+                        throw new LibroException("Escriba la Editorial");
                     } else {
                         if (txtPr.getText().equals("")) {
                             txtPr.requestFocus();
-                            throw new LibroException("ESPACIO EN BLANCO");
+                            throw new LibroException("Defina el Precio");
                         }
                     }
                 }
@@ -146,26 +146,29 @@ public class VentBook extends javax.swing.JFrame {
     private void checkISBN() throws LibroException{      
         try {
             int a = tblLib.getRowCount();
-            loadTbl();
+            tbl();
             int c = tblLib.getRowCount();
             if (c==0) {
-                    Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
-                    b.guardar();
-                }
-            for (int i = 0; i < c; i++) {
-                System.out.println(tblLib.getValueAt(i, 0).toString() + tblLib.getRowCount());
-                System.out.println(i + " " + (c - 1));
-                if (!txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString()) && i == c - 1) {
-                    Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
-                    b.guardar();
-                }
-                if (txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString())) {
-                    if (a==0) {
-                      modelo.setRowCount(0);  
-                    }                    
-                    throw new LibroException("Ese Numero de control, ya ha sido registrado");
-                }
+                Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
+                b.guardar();
+            }else{
+                for (int i = 0; i < c; i++) {
+                    System.out.println(tblLib.getValueAt(i, 0).toString() + tblLib.getRowCount());
+                    System.out.println(i + " " + (c - 1));
+                    if (!txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString()) && i == c - 1) {
+                        Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
+                        b.guardar();
+                    }
+                    if (txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString())) {
+                        
+                        throw new LibroException("Ese Numero de control, ya ha sido registrado");
+                    }
+                } 
             }
+            if (a == 0) {
+                modelo.setRowCount(0);
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(VentBook.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,7 +190,7 @@ public class VentBook extends javax.swing.JFrame {
     
     private void searchISBN(String isbn){
        try {         
-            loadTbl();  
+            tbl();  
             int c=tblLib.getRowCount();                    
             for (int i = 0; i < c; i++) {
                 System.out.println(tblLib.getValueAt(i, 0).toString()+tblLib.getRowCount());
@@ -413,6 +416,8 @@ public class VentBook extends javax.swing.JFrame {
             }
         });
         tblLib.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tblLib.setEditingColumn(0);
+        tblLib.setEditingRow(0);
         tblLib.setEnabled(false);
         tblLib.setFocusable(false);
         tblLib.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -636,7 +641,7 @@ public class VentBook extends javax.swing.JFrame {
                 btnView.setText("Mostrar");
             }else{
                 modelo.setRowCount(0);
-                loadTbl();
+                tbl();
                 temp=true;
                 defaultButt(true,false,false);
                 tblLib.setEnabled(true);
@@ -651,13 +656,15 @@ public class VentBook extends javax.swing.JFrame {
 
     private void btnSeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeActionPerformed
         String isbn=showInputDialog(this,"ISBN a buscar","",3);
-        if ("".equals(isbn)) {
-            showMessageDialog(this, "Escriba un ISBN");
-            return;
-        }else{
-            searchISBN(isbn);
+        if (isbn!=null) {
+            if ("".equals(isbn)) {
+                showMessageDialog(this, "Escriba un ISBN");
+                return;
+            }else{
+                searchISBN(isbn);
+            }        
+            bFields(false);
         }        
-        bFields(true);
     }//GEN-LAST:event_btnSeActionPerformed
     
     private void btnCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanActionPerformed
@@ -733,7 +740,7 @@ public class VentBook extends javax.swing.JFrame {
                 cField();
                 try {
                     modelo.setRowCount(0);
-                    loadTbl();
+                    tbl();
                     defaultButt(true, false, false);
                     bFields(false);
                     tblLib.clearSelection();
@@ -746,11 +753,11 @@ public class VentBook extends javax.swing.JFrame {
             }
         } else {
             try {
-                emptyField();
+                emptyF();
                 checkISBN();
                 if(tblLib.getRowCount() > 0){
                     modelo.setRowCount(0);
-                    loadTbl();
+                    tbl();
                 }
             } catch (LibroException | IOException e) {
                 showMessageDialog(rootPane, e.getMessage());
@@ -768,6 +775,7 @@ public class VentBook extends javax.swing.JFrame {
         test=true;
         deleteFile();
         test=false;
+        btnView.setText("Mostrar");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -826,7 +834,6 @@ public class VentBook extends javax.swing.JFrame {
         return saltStr.toLowerCase();
 
     }
-    
     /**
      * @param args the command line arguments
      */
