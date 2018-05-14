@@ -9,7 +9,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -153,8 +152,8 @@ public class VentBook extends javax.swing.JFrame {
                 b.guardar();
             }else{
                 for (int i = 0; i < c; i++) {
-                    System.out.println(tblLib.getValueAt(i, 0).toString() + tblLib.getRowCount());
-                    System.out.println(i + " " + (c - 1));
+//                    System.out.println(tblLib.getValueAt(i, 0).toString() + tblLib.getRowCount());
+//                    System.out.println(i + " " + (c - 1));
                     if (!txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString()) && i == c - 1) {
                         Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
                         b.guardar();
@@ -193,8 +192,8 @@ public class VentBook extends javax.swing.JFrame {
             tbl();  
             int c=tblLib.getRowCount();                    
             for (int i = 0; i < c; i++) {
-                System.out.println(tblLib.getValueAt(i, 0).toString()+tblLib.getRowCount());
-                System.out.println(i+" "+(c-1));
+//                System.out.println(tblLib.getValueAt(i, 0).toString()+tblLib.getRowCount());
+//                System.out.println(i+" "+(c-1));
                 if (!isbn.equals(tblLib.getValueAt(i, 0).toString()) && i==c-1) {
                     showMessageDialog(this, "No se encontro el Libro");                    
                 }
