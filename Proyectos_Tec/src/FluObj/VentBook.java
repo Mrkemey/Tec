@@ -110,13 +110,6 @@ public class VentBook extends javax.swing.JFrame {
         }
     }
     
-    private void fillFields(Libro a) {
-        txtIsbn.setText(a.getIsbn());
-        txtTit.setText(a.getTitulo());
-        txtAut.setText(a.getAutor());
-        txtEdit.setText(a.getEditorial());
-        txtPr.setText("" + a.getPrecio());
-    }
     public void clean() {
         try {
             Libro a = new Libro();
@@ -152,8 +145,13 @@ public class VentBook extends javax.swing.JFrame {
     }
     private void validISBN() throws LibroException{      
         try {
+            int a = tblLib.getRowCount();
             tbl();
             int c = tblLib.getRowCount();
+            if (c==0) {
+                    Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
+                    b.guardar();
+                }
             for (int i = 0; i < c; i++) {
                 System.out.println(tblLib.getValueAt(i, 0).toString() + tblLib.getRowCount());
                 System.out.println(i + " " + (c - 1));
@@ -162,7 +160,9 @@ public class VentBook extends javax.swing.JFrame {
                     b.guardar();
                 }
                 if (txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString())) {
-                    modelo.setRowCount(0);
+                    if (a==0) {
+                      modelo.setRowCount(0);  
+                    }                    
                     throw new LibroException("Ese Numero de control, ya ha sido registrado");
                 }
             }
@@ -217,13 +217,14 @@ public class VentBook extends javax.swing.JFrame {
         txtPr = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLib = new javax.swing.JTable();
+        jInternalFrame1 = new javax.swing.JInternalFrame();
+        jButton4 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Libreria");
-        getContentPane().setLayout(null);
 
         jSplitPane2.setContinuousLayout(true);
         jSplitPane2.setPreferredSize(new java.awt.Dimension(440, 62));
@@ -329,28 +330,15 @@ public class VentBook extends javax.swing.JFrame {
 
         jSplitPane2.setRightComponent(jToolBar2);
 
-        getContentPane().add(jSplitPane2);
-        jSplitPane2.setBounds(0, 0, 516, 62);
-
         jLabel1.setText("ISBN");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(37, 72, 27, 16);
 
         jLabel2.setText("TITULO");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(37, 122, 41, 16);
 
         jLabel3.setText("AUTOR");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(40, 164, 40, 16);
 
         jLabel4.setText("EDITORIAL");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(37, 206, 60, 16);
 
         jLabel5.setText("PRECIO");
-        getContentPane().add(jLabel5);
-        jLabel5.setBounds(37, 248, 43, 16);
 
         txtIsbn.setEditable(false);
         txtIsbn.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -358,12 +346,8 @@ public class VentBook extends javax.swing.JFrame {
                 txtIsbnKeyTyped(evt);
             }
         });
-        getContentPane().add(txtIsbn);
-        txtIsbn.setBounds(149, 68, 125, 24);
 
         txtTit.setEditable(false);
-        getContentPane().add(txtTit);
-        txtTit.setBounds(149, 118, 204, 24);
 
         txtAut.setEditable(false);
         txtAut.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -371,8 +355,6 @@ public class VentBook extends javax.swing.JFrame {
                 txtAutKeyTyped(evt);
             }
         });
-        getContentPane().add(txtAut);
-        txtAut.setBounds(149, 160, 204, 24);
 
         txtEdit.setEditable(false);
         txtEdit.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -380,8 +362,6 @@ public class VentBook extends javax.swing.JFrame {
                 txtEditKeyTyped(evt);
             }
         });
-        getContentPane().add(txtEdit);
-        txtEdit.setBounds(149, 202, 204, 24);
 
         txtPr.setEditable(false);
         txtPr.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -389,8 +369,6 @@ public class VentBook extends javax.swing.JFrame {
                 txtPrKeyTyped(evt);
             }
         });
-        getContentPane().add(txtPr);
-        txtPr.setBounds(149, 244, 204, 24);
 
         tblLib.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -418,35 +396,141 @@ public class VentBook extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblLib);
 
-        getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(10, 280, 504, 141);
+        jInternalFrame1.setTitle("Controles Admin");
+        jInternalFrame1.setVisible(true);
 
-        jButton1.setText("Test: Borrar BD");
+        jButton4.setText("Isbn+Caracter");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Borrar BD");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(390, 70, 117, 32);
 
-        jButton2.setText("Test: Llenar BD");
+        jButton2.setText(" Llenar BD");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2);
-        jButton2.setBounds(390, 100, 116, 32);
 
-        jButton3.setText("Test: Llenar BD");
+        jButton3.setText("Test: Campos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3);
-        jButton3.setBounds(390, 130, 116, 32);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGroup(jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
+                            .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jButton2)))
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jInternalFrame1Layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(jButton3)))
+                .addGap(0, 14, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 504, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(69, 69, 69)
+                                .addComponent(txtPr, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(52, 52, 52)
+                                .addComponent(txtEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(3, 3, 3)
+                                        .addComponent(jLabel3)))
+                                .addGap(69, 69, 69)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtTit, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtAut, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(40, 40, 40)
+                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel1)
+                                .addGap(34, 34, 34)
+                                .addComponent(jLabel2)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtIsbn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(txtTit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtAut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel4))
+                            .addComponent(txtEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(4, 4, 4)
+                                .addComponent(jLabel5))
+                            .addComponent(txtPr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -494,6 +578,7 @@ public class VentBook extends javax.swing.JFrame {
             txtEdit.setText(tblLib.getValueAt(a, 3).toString());
             txtPr.setText(tblLib.getValueAt(a, 4).toString());
             defaultButt(false, true, true);
+            btnMod.setEnabled(false);
             bFields(true);
 
         }
@@ -509,18 +594,30 @@ public class VentBook extends javax.swing.JFrame {
             txtEdit.setText(tblLib.getValueAt(a, 3).toString());
             txtPr.setText(tblLib.getValueAt(a, 4).toString());
             defaultButt(false,true,true);
+            btnMod.setEnabled(false);
             bFields(true);
+        }else{
+            showMessageDialog(this, "Seleccione un dato de la tabla");
         }
     }//GEN-LAST:event_btnModActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         try {
             // TODO add your handling code here:
-            modelo.setRowCount(0);
-            tbl();
-            defaultButt(true,false,false);
-            tblLib.setEnabled(true);
-            bFields(false);
+            if(temp==true){
+                temp=false;
+                modelo.setRowCount(0);
+                btnView.setText("Mostrar");
+            }else{
+                modelo.setRowCount(0);
+                tbl();
+                temp=true;
+                defaultButt(true,false,false);
+                tblLib.setEnabled(true);
+                bFields(false);
+                btnView.setText("Ocultar");
+            }
+            
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
@@ -690,23 +787,42 @@ public class VentBook extends javax.swing.JFrame {
             out.close();
             System.out.println("Archivo completo");
         } catch (IOException ioe) {
-            ioe.printStackTrace();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        txtIsbn.setText(((int)(Math.random()*100000000))+"");
+        txtTit.setText(random());
+        txtAut.setText(random());
+        txtEdit.setText(random());
+        txtPr.setText(((int)(Math.random()*1000))+"");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         txtIsbn.setText(((int)(Math.random()*1000))+random());
         txtTit.setText(random());
         txtAut.setText(random());
         txtEdit.setText(random());
         txtPr.setText(((int)(Math.random()*1000))+"");
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
     public String random(){
-        byte[] array = new byte[5]; // length is bounded by 7
-        new Random().nextBytes(array);
-        String generatedString = new String(array, Charset.forName("ISO-8859-1"));
-        return generatedString;
+//        byte[] array = new byte[5]; // length is bounded by 7
+//        new Random().nextBytes(array);
+//        
+//        String generatedString = new String(array);
+//        return generatedString;
+        String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder salt = new StringBuilder();
+        Random rnd = new Random();
+        while (salt.length() < 5) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            salt.append(SALTCHARS.charAt(index));
+        }
+        String saltStr = salt.toString();
+        return saltStr.toLowerCase();
+
     }
     /**
      * @param args the command line arguments
@@ -734,14 +850,11 @@ public class VentBook extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new VentBook().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new VentBook().setVisible(true);
         });
     }
-    boolean test=false;
+    boolean test=false,temp;
     private final DefaultTableModel modelo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCan;
@@ -754,6 +867,8 @@ public class VentBook extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
