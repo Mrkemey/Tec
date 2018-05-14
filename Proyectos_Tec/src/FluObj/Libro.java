@@ -94,7 +94,7 @@ public class Libro implements Serializable{
     public static void clean()
     {
         try {
-            Libro a=new Libro();
+            Libro a=new Libro(" "," "," "," ",0);
             java.io.FileOutputStream fb = new java.io.FileOutputStream(fDir, false);
             java.io.ObjectOutputStream fow = new java.io.ObjectOutputStream(fb);
             fow.writeObject(a);
@@ -139,25 +139,24 @@ public class Libro implements Serializable{
     }   
     
     public boolean valISBN(String isbn)
-    {   
-        try {
+    {   boolean a=true;
+        try {int i=0;
             java.io.FileInputStream fb = new java.io.FileInputStream(fDir);
             java.io.ObjectInputStream fol = new java.io.ObjectInputStream(fb);
-            while (fb.available() > 0) { 
-                
+            while (100 > 0) {                 
                 Libro p = (Libro) fol.readObject();
-                this.isbn = (p.getIsbn());
-                if (isbn.equals(this.isbn)) {
-                    return false; 
-                }
+                System.out.println(isbn+"  "+p.getIsbn()+"  "+i++);
+//                if (isbn.equals(p.getIsbn())) {
+//                    a=false;
+//                }
             }            
             
         } catch (FileNotFoundException ex) {
 
         } catch (IOException | ClassNotFoundException ex) {
 
-        }
-        return true;
+        }System.out.println(a);
+        return a;
     } 
 
 }

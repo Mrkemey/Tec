@@ -123,9 +123,9 @@ public class Alumno {
         }
     }
     public boolean sea(String nc) {
-        FileInputStream fb;
+        
         try {
-            fb = new FileInputStream(File);
+            FileInputStream fb = new FileInputStream(File);
             java.io.DataInputStream fdr = new java.io.DataInputStream(fb);
 
             while (true) {
