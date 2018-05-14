@@ -28,7 +28,7 @@ public class VentBook extends javax.swing.JFrame {
     }
     
 //<editor-fold defaultstate="collapsed" desc="Funciones de Datos & Objetos">
-    private void tbl() throws FileNotFoundException, IOException {
+    private void loadTbl() throws FileNotFoundException, IOException {
         modelo.setRowCount(0);
         try (FileInputStream fb = new FileInputStream(Libro.fDir)) {
             Libro O;
@@ -83,7 +83,7 @@ public class VentBook extends javax.swing.JFrame {
         
     }
     
-    public void espaciosBlanco() throws LibroException {
+    public void emptyField() throws LibroException {
         if (txtIsbn.getText().equals("")) {
             txtIsbn.requestFocus();
             throw new LibroException("ESPACIO EN BLANCO");
@@ -110,7 +110,7 @@ public class VentBook extends javax.swing.JFrame {
         }
     }
     
-    public void clean() {
+    public void cleanFile() {
         try {
             Libro a = new Libro();
             java.io.FileOutputStream fb = new java.io.FileOutputStream(Libro.fDir, false);
@@ -123,7 +123,7 @@ public class VentBook extends javax.swing.JFrame {
             System.out.println("Error al guardar");
         }
     }
-    private void elim(){
+    private void deleteFile(){
         try {
             File archivo=new File(Libro.fDir);
             archivo.createNewFile();
@@ -143,10 +143,10 @@ public class VentBook extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    private void validISBN() throws LibroException{      
+    private void checkISBN() throws LibroException{      
         try {
             int a = tblLib.getRowCount();
-            tbl();
+            loadTbl();
             int c = tblLib.getRowCount();
             if (c==0) {
                     Libro b = new Libro(txtIsbn.getText(), txtTit.getText(), txtAut.getText(), txtEdit.getText(), Float.parseFloat(txtPr.getText()));
@@ -170,7 +170,7 @@ public class VentBook extends javax.swing.JFrame {
             Logger.getLogger(VentBook.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void vISBN() throws LibroException{
+    private void testISBN() throws LibroException{
         boolean a = true;
         for (int i = 0; i < tblLib.getRowCount(); i++) {
             if (txtIsbn.getText().equals(tblLib.getValueAt(i, 0).toString())) {
@@ -183,6 +183,32 @@ public class VentBook extends javax.swing.JFrame {
                 throw new LibroException("Libro ya existe");
             }
         }
+    }
+    
+    private void searchISBN(String isbn){
+       try {         
+            loadTbl();  
+            int c=tblLib.getRowCount();                    
+            for (int i = 0; i < c; i++) {
+                System.out.println(tblLib.getValueAt(i, 0).toString()+tblLib.getRowCount());
+                System.out.println(i+" "+(c-1));
+                if (!isbn.equals(tblLib.getValueAt(i, 0).toString()) && i==c-1) {
+                    showMessageDialog(this, "No se encontro el Libro");                    
+                }
+                if (isbn.equals(tblLib.getValueAt(i, 0).toString())) {                    
+                    tblLib.setRowSelectionInterval(i, i);
+                    txtIsbn.setText(tblLib.getValueAt(i, 0).toString());
+                    txtTit.setText(tblLib.getValueAt(i, 1).toString());  
+                    txtAut.setText(tblLib.getValueAt(i, 2).toString());
+                    txtEdit.setText(tblLib.getValueAt(i, 3).toString());
+                    txtPr.setText(tblLib.getValueAt(i, 4).toString());
+                    break;
+                }
+            }
+            
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } 
     }
     
 //</editor-fold>
@@ -610,7 +636,7 @@ public class VentBook extends javax.swing.JFrame {
                 btnView.setText("Mostrar");
             }else{
                 modelo.setRowCount(0);
-                tbl();
+                loadTbl();
                 temp=true;
                 defaultButt(true,false,false);
                 tblLib.setEnabled(true);
@@ -629,35 +655,11 @@ public class VentBook extends javax.swing.JFrame {
             showMessageDialog(this, "Escriba un ISBN");
             return;
         }else{
-            search(isbn);
+            searchISBN(isbn);
         }        
         bFields(true);
     }//GEN-LAST:event_btnSeActionPerformed
-    private void search(String isbn){
-       try {         
-            tbl();  
-            int c=tblLib.getRowCount();                    
-            for (int i = 0; i < c; i++) {
-                System.out.println(tblLib.getValueAt(i, 0).toString()+tblLib.getRowCount());
-                System.out.println(i+" "+(c-1));
-                if (!isbn.equals(tblLib.getValueAt(i, 0).toString()) && i==c-1) {
-                    showMessageDialog(this, "No se encontro el Libro");                    
-                }
-                if (isbn.equals(tblLib.getValueAt(i, 0).toString())) {                    
-                    tblLib.setRowSelectionInterval(i, i);
-                    txtIsbn.setText(tblLib.getValueAt(i, 0).toString());
-                    txtTit.setText(tblLib.getValueAt(i, 1).toString());  
-                    txtAut.setText(tblLib.getValueAt(i, 2).toString());
-                    txtEdit.setText(tblLib.getValueAt(i, 3).toString());
-                    txtPr.setText(tblLib.getValueAt(i, 4).toString());
-                    break;
-                }
-            }
-            
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        } 
-    }
+    
     private void btnCanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanActionPerformed
         // TODO add your handling code here:
         tblLib.clearSelection();
@@ -678,8 +680,8 @@ public class VentBook extends javax.swing.JFrame {
         boolean Tipo=false;
         int a = tblLib.getSelectedRow();
         modelo.removeRow(a);
-        clean();
-        elim();
+        cleanFile();
+        deleteFile();
         for (int i = 0; i < tblLib.getRowCount(); i++) {
             Libro b = new Libro(tblLib.getValueAt(i, 0).toString(),
                 tblLib.getValueAt(i, 1).toString(),
@@ -702,7 +704,7 @@ public class VentBook extends javax.swing.JFrame {
 
         if (btnDel.isEnabled()) {
             try {
-                vISBN();
+                testISBN();
                 int a = tblLib.getSelectedRow();
                 Object O[] = new Object[5];
                 O[0] = txtIsbn.getText();
@@ -712,8 +714,8 @@ public class VentBook extends javax.swing.JFrame {
                 O[4] = txtPr.getText();
                 modelo.removeRow(a);
                 modelo.insertRow(a, O);
-                clean();
-                elim();
+                cleanFile();
+                deleteFile();
                 for (int i = 0; i < tblLib.getRowCount(); i++) {
                         if (tblLib.getValueAt(i, 0) != null) {
                         Libro b = new Libro(tblLib.getValueAt(i, 0).toString(),
@@ -731,7 +733,7 @@ public class VentBook extends javax.swing.JFrame {
                 cField();
                 try {
                     modelo.setRowCount(0);
-                    tbl();
+                    loadTbl();
                     defaultButt(true, false, false);
                     bFields(false);
                     tblLib.clearSelection();
@@ -744,11 +746,11 @@ public class VentBook extends javax.swing.JFrame {
             }
         } else {
             try {
-                espaciosBlanco();
-                validISBN();
+                emptyField();
+                checkISBN();
                 if(tblLib.getRowCount() > 0){
                     modelo.setRowCount(0);
-                    tbl();
+                    loadTbl();
                 }
             } catch (LibroException | IOException e) {
                 showMessageDialog(rootPane, e.getMessage());
@@ -764,7 +766,7 @@ public class VentBook extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         test=true;
-        elim();
+        deleteFile();
         test=false;
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -824,6 +826,7 @@ public class VentBook extends javax.swing.JFrame {
         return saltStr.toLowerCase();
 
     }
+    
     /**
      * @param args the command line arguments
      */
