@@ -95,11 +95,8 @@ public class Ventana extends javax.swing.JFrame {
         Date fechasal = jDateSalida.getDate();
         
         if(fechaentr==null){
-            showMessageDialog(this, "Introduce una fecha correcta, por favor");
-            
-            
-                             
-         }else {
+            showMessageDialog(this, "Introduce una fecha correcta, por favor");                     
+        }else {
              if (fechaentr.before(fechasal)) {/*Si fecha de entrada es antes de fecha de salida regresa un true*/
                 SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");//Formato de la fecha
                 fe=formateador.format(fechaentr);//Un tipo Date a String con el formato de arriba
@@ -110,7 +107,7 @@ public class Ventana extends javax.swing.JFrame {
                 jDateSalida.setDate(null);
              }
             
-         }
+        }
     }
     
 

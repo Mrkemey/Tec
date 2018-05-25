@@ -91,10 +91,10 @@ public class Fechas {
     }
     public static void main(String[] args) {
         Fechas a=new Fechas(19,6,1878);
-        //a.leer();
+        a.leer();
         a.mostrar();
         Fechas b=new Fechas(10,11,1877);
-        //b.leer();
+        b.leer();
         b.mostrar();
         Fechas c=new Fechas();
         c=a.mas(b);

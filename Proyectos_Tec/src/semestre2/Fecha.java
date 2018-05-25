@@ -56,9 +56,9 @@ public class Fecha {
     }
     public static void main(String[] args) {
         Fecha hoy;
-//        hoy=new Fecha();
-//        hoy.leer();
-        hoy=new Fecha(19,06,1999);
+        hoy=new Fecha();
+        hoy.leer();
+        //hoy=new Fecha(19,06,1999);
         hoy.mostrar();
         hoy.nDias();
     }
